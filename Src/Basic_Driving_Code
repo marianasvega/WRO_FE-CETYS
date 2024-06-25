@@ -1,0 +1,55 @@
+
+// CODE FOR BASIC DRIVING OF THE VEHICLE //
+// USING SERVOMOTOR AND DC MOTOR IN ARDUINO //
+
+#include <Servo.h>
+
+Servo servo;
+
+const int motorIn1 = 12;         // DEFINE DC MOTOR PIN WIRING IN ARDUINO //
+const int motorIn2 = 13;
+const int motorENA = 11;
+
+void setup() {
+
+  servo.attach(9);              // DEFINE SERVO MOTOR PIN WIRING IN ARDUINO //
+  servo.write(90);              // DEFINE SERVO MOTOR ANGLE //
+
+
+  pinMode(motorIn1, OUTPUT);    // PIN MODES //
+  pinMode(motorIn2, OUTPUT);
+  pinMode(motorENA, OUTPUT);
+
+
+  Serial.begin(9600);           // INITIALIZE THE SERIAL MONITOR BAUD RATE //
+
+}
+
+
+void loop() {
+
+    delay(500);
+    servo.write(45);
+    digitalWrite(motorIn1, HIGH);
+    digitalWrite(motorIn2, LOW);
+    analogWrite(motorENA, 100); 
+
+    delay(1000);
+
+    servo.write(135);
+    digitalWrite(motorIn1, LOW);
+    digitalWrite(motorIn2, HIGH);
+    analogWrite(motorENA, 100); 
+    
+    delay(1000);
+
+    servo.write(90);
+    digitalWrite(motorIn1, LOW);
+    digitalWrite(motorIn2, LOW);
+    analogWrite(motorENA, 0); 
+
+    delay(1000);
+    
+}
+
+

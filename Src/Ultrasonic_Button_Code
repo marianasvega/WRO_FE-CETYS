@@ -1,0 +1,202 @@
+#include <LEANTEC_ControlMotor.h>           // INCLUDE THE NECESSARY LIBRARIES //
+#include <Servo.h>
+Servo servo;
+
+////// DEFINE PIN CONNECTIONS ON ARDUINO UNO //////
+
+//// DC MOTOR CONNECTED TO A L298N ////
+int IN1 = 4; 
+int IN2 = 3; 
+int ENA = 5; 
+int speed = 150;                            // WE DECLARE A VARIABLE FOR BASE SPEED //
+
+//// ULTRASONIC SENSORS PINS ////
+const int Trig_US1 = 9;
+const int Echo_US1 = 10;
+const int Trig_US2 = 11;
+const int Echo_US2 = 12;
+const int Trig_US3 = 13;
+const int Echo_US3 = 8;
+
+//// BOTTON PINS ////
+int cont = 0;
+const char buttonPin = 7; 
+bool start = false;                         // DEFINE VARIABLE TO START PROGRAM //
+
+void setup()  {   
+  pinMode(IN1, OUTPUT); 
+  pinMode(IN2, OUTPUT);    
+  pinMode(ENA, OUTPUT);   
+
+  servo.attach(6); 
+  servo.write(90); 
+
+  pinMode(Trig_US1, OUTPUT);
+  pinMode(Echo_US1, INPUT);
+  
+  pinMode(Trig_US2, OUTPUT);
+  pinMode(Echo_US2, INPUT);
+
+  pinMode(Trig_US3, OUTPUT);
+  pinMode(Echo_US3, INPUT);
+
+  pinMode(buttonPin,INPUT_PULLUP);
+ 
+}  
+
+///// ULTRASONIC MAIN CODE /////
+long DisCalc(int TP, int EP) {
+
+  digitalWrite(TP, LOW);                    // CLEAR THE TRIG PIN //
+  delayMicroseconds(2); 
+
+  digitalWrite(TP, HIGH);                   // SET THE TRIG PIN HIGH FOR 10 MICROSECONDS //
+  delayMicroseconds(10);
+  digitalWrite(TP, LOW);
+
+  long duration = pulseIn(EP, HIGH);        // READ THE ECHO PIN AND CALCULATE THE DIRECTION //
+
+  long distance = duration * 0.034 / 2;     // CALCULATE THE DISTANCE IN CENTIMETERS //
+
+  return distance;
+
+}
+
+void STRAIGHT(){                            // VEHICLE MOVES STRAIGHT FORWARD //
+
+  servo.write(90);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);
+  analogWrite(ENA,225);                     // SET SPEED FOR THE MOTOR //
+ 
+} 
+
+void RIGHT(){                               // VEHICLE SWERVES RIGHT //
+
+  servo.write(65);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);   
+  analogWrite(ENA,125);                     // SET SPEED FOR THE MOTOR //
+  
+} 
+
+void LEFT(){                                // VEHICLE SWERVES LEFT //
+
+  servo.write(115);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);   
+  analogWrite(ENA,125);                     // SET SPEED FOR THE MOTOR //
+
+}
+
+void SLIGHTLY_LEFT(){                       // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+
+  servo.write(105);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);   
+  analogWrite(ENA,125);                     // SET SPEED FOR THE MOTOR //
+  
+}
+
+void SLIGHTLY_RIGHT(){                      // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+
+  servo.write(75);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);              
+  analogWrite(ENA,125);                     // SET SPEED FOR THE MOTOR //
+
+} 
+
+
+void STOP(){                                // VEHICLE STOPS COMPLETELY//
+  servo.write(90);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,LOW);  
+  analogWrite(ENA,0);
+
+}
+
+
+
+void loop()  {  
+
+///// CHECK IF THE BUTTON HAS BEEN PRESSED TO START OR END CODE /////
+if (digitalRead(buttonPin) == HIGH && cont == 0) {              // START //
+
+  start = true; 
+  cont = 1;
+  delay(500); 
+
+}
+
+
+if (digitalRead(buttonPin) == HIGH && cont == 1) {             // STOP //
+
+  start = false;        
+  cont = 0;
+  delay(500); 
+
+}
+
+
+if (start == true) {
+
+  delay (500);
+  long distance1 = DisCalc(Trig_US1, Echo_US1);
+  Serial.print(distance1);
+  Serial.println(" cm");
+
+  long distance2 = DisCalc(Trig_US2, Echo_US2);
+  Serial.print(distance2);
+  Serial.println(" cm");
+
+  long distance3 = DisCalc(Trig_US3, Echo_US3);
+  Serial.print(distance3);
+  Serial.println(" cm");
+
+
+  STAIGHT();  
+
+
+  if(distance2 < 100)
+  {
+    if(distance1 > 200 && distance3 < 200)
+    {
+      LEFT();
+      if(distance2 > 400)
+      {
+      STRAIGHT();  
+      }
+    }
+  }
+  else if(distance1 < 200 && distance3 > 200)
+  {
+   
+      RIGHT(); 
+      if(distance2 > 400)
+      {
+      STRAIGHT();  
+      }
+    
+  }
+
+  if (distance1 > distance3)
+  {
+      SLIGHTLY_LEFT();
+      delay(1000);
+      STRAIGHT();
+
+  }
+
+  if(distance1 < distance3)
+  {
+      SLIGHTLY_RIGHT();
+      delay(1000);
+      STRAIGHT();
+  }
+  
+}
+
+STOP();
+
+}

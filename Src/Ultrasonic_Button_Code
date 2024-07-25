@@ -59,7 +59,6 @@ long DisCalc(int TP, int EP) {
   long distance = duration * 0.034 / 2;     // CALCULATE THE DISTANCE IN CENTIMETERS //
 
   return distance;
-
 }
 
 void STRAIGHT(){                            // VEHICLE MOVES STRAIGHT FORWARD //
@@ -129,19 +128,8 @@ if (digitalRead(buttonPin) == HIGH && cont == 0) {              // START //
 
 }
 
-
-if (digitalRead(buttonPin) == HIGH && cont == 1) {             // STOP //
-
-  start = false;        
-  cont = 0;
-  delay(500); 
-
-}
-
-
 if (start == true) {
 
-  delay (500);
   long distance1 = DisCalc(Trig_US1, Echo_US1);
   Serial.print(distance1);
   Serial.println(" cm");
@@ -197,6 +185,16 @@ if (start == true) {
   
 }
 
+if (digitalRead(buttonPin) == HIGH && cont == 1) {             // STOP //
+
+  start = false;        
+  cont = 0;
+  delay(500); 
+
+}
+
 STOP();
 
 }
+
+

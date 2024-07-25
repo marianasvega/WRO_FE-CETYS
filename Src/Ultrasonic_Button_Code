@@ -155,7 +155,7 @@ if (start == true) {
   Serial.println(" cm");
 
 
-  STAIGHT();  
+  STRAIGHT();  
 
 
   if(distance2 < 100)

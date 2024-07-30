@@ -128,6 +128,14 @@ if (digitalRead(buttonPin) == HIGH && cont == 0) {              // START //
 
 }
 
+if (digitalRead(buttonPin) == HIGH && cont == 1) {             // STOP //
+
+  start = false;        
+  cont = 0;
+  delay(500); 
+
+}
+
 if (start == true) {
 
   long distance1 = DisCalc(Trig_US1, Echo_US1);
@@ -183,14 +191,6 @@ if (start == true) {
       STRAIGHT();
   }
   
-}
-
-if (digitalRead(buttonPin) == HIGH && cont == 1) {             // STOP //
-
-  start = false;        
-  cont = 0;
-  delay(500); 
-
 }
 
 STOP();

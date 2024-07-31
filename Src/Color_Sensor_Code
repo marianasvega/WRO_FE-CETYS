@@ -1,33 +1,36 @@
 // CODE FOR COLOR SENSOR (TCS3200) IN ARDUINO //
 
-#define s0 11       // DEFINE MODULE PIN WIRING IN ARDUINO //
+#define s0 11                      // DEFINE MODULE PIN WIRING IN ARDUINO //
 #define s1 12
 #define s2 9
 #define s3 10
 #define out 8
 
-int value,R,G,B;        // HERE WE WILL STORE THE DATA OBTAINED BY THE COLOR SENSOR //
+int value,R,G,B;                   // HERE WE WILL STORE THE DATA OBTAINED BY THE COLOR SENSOR //
 
-void setup() 
-{
+void setup() {
 
-   pinMode(s0,OUTPUT);    // PIN MODES //
+   pinMode(s0,OUTPUT);             // PIN MODES //
    pinMode(s1,OUTPUT);
    pinMode(s2,OUTPUT);
    pinMode(s3,OUTPUT);
    pinMode(out,INPUT);
  
-   Serial.begin(9600);   // INITIALIZE THE SERIAL MONITOR BAUD RATE //
+   Serial.begin(9600);            // INITIALIZE THE SERIAL MONITOR BAUD RATE //
    
-   digitalWrite(s0,HIGH); // PUTTIN S0 AND S1 ON HIGH/HIGH LEVELS MEANS THE OUTPUT FREGUENCY SCALLING IS AT 100% //
-   digitalWrite(s1,HIGH); // LOW/LOW IF OFF HIGH/LOW IS AT 20% AND LOW/HIGH IS AT 2% //
+   digitalWrite(s0,HIGH);         // PUTTIN S0 AND S1 ON HIGH/HIGH LEVELS MEANS THE OUTPUT FREGUENCY SCALLING IS AT 100% //
+   digitalWrite(s1,HIGH);         // LOW/LOW IF OFF HIGH/LOW IS AT 20% AND LOW/HIGH IS AT 2% //
    
 }
 
-void loop()     // EVERY 1 SECOND WE SELECT A PHOTODIODES SET AND READ IT´S VALUE //
-{
+void GetValue() {
+   value=pulseIn(out,LOW);        //HERE WE WAIT UNTIL "OUT" GOES LOW, WE START MEASURING THE DURATION AND STOP WHEN "OUT" IS HIGH AGAIN //
+   delay(20);
+}
 
-   digitalWrite(s2,LOW);           // S2 AND S3 LEVELS DEFINE WHICH SET OF PHOTODIODES WE ARE USING; LOW/LOW IS FOR RED, LOW/HIGH IS FOR BLUE; AND HIGH/HIGH IS FOR GREEN //
+void loop() {                     // EVERY 1 SECOND WE SELECT A PHOTODIODES SET AND READ IT´S VALUE //
+
+   digitalWrite(s2,LOW);          // S2 AND S3 LEVELS DEFINE WHICH SET OF PHOTODIODES WE ARE USING; LOW/LOW IS FOR RED, LOW/HIGH IS FOR BLUE; AND HIGH/HIGH IS FOR GREEN //
    digitalWrite(s3,LOW);
    Serial.print("Red value= "); 
    GetValue();                   
@@ -62,12 +65,5 @@ else if(R<18 & G<20 & B<20)   Serial.print("      GREY      ");
    Serial.println();
    delay(1000);
 
-}
-
-
-void GetValue()
-{
-   value=pulseIn(out,LOW);   //HERE WE WAIT UNTIL "OUT" GOES LOW, WE START MEASURING THE DURATION AND STOP WHEN "OUT" IS HIGH AGAIN //
-   delay(20);
 }
 

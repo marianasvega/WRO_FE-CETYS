@@ -1,3 +1,5 @@
+////// CODE USED TO DETECT AND AVOID OBSTACLES USING THE PIXY2 CAMERA //////
+
 #include <Servo.h>                             // INCLUDE THE NECESSARY LIBRARIES //
 Servo servo;
 #include <Pixy2.h>
@@ -28,7 +30,7 @@ void setup()  {
  
 }  
 
-void STRAIGHT(){                                // VEHICLE MOVES STRAIGHT FORWARD //
+void STRAIGHT()  {                              // VEHICLE MOVES STRAIGHT FORWARD //
 
   servo.write(90);
   digitalWrite(IN1,HIGH);   
@@ -38,7 +40,7 @@ void STRAIGHT(){                                // VEHICLE MOVES STRAIGHT FORWAR
  
 } 
 
-void STRAIGHT_SLOW(){                           // VEHICLE MOVES STRAIGHT FORWARD BUT SLOWER //
+void STRAIGHT_SLOW()  {                         // VEHICLE MOVES STRAIGHT FORWARD BUT SLOWER //
 
   servo.write(90);
   digitalWrite(IN1,HIGH);   
@@ -48,7 +50,7 @@ void STRAIGHT_SLOW(){                           // VEHICLE MOVES STRAIGHT FORWAR
  
 } 
 
-void RIGHT(){                                   // VEHICLE SWERVES RIGHT //
+void RIGHT()  {                                 // VEHICLE SWERVES RIGHT //
 
   servo.write(70);
   digitalWrite(IN1,HIGH);   
@@ -58,7 +60,7 @@ void RIGHT(){                                   // VEHICLE SWERVES RIGHT //
   
 } 
 
-void LEFT(){                                    // VEHICLE SWERVES LEFT //
+void LEFT()  {                                  // VEHICLE SWERVES LEFT //
 
   servo.write(110);
   digitalWrite(IN1,HIGH);   
@@ -68,7 +70,7 @@ void LEFT(){                                    // VEHICLE SWERVES LEFT //
 
 }
 
-void SLIGHTLY_LEFT(){                           // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+void SLIGHTLY_LEFT()  {                         // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
 
   servo.write(100);
   digitalWrite(IN1,HIGH);   
@@ -78,7 +80,7 @@ void SLIGHTLY_LEFT(){                           // VEHICLE SWERVES SLIGHTLY LESS
   
 }
 
-void SLIGHTLY_RIGHT(){                          // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+void SLIGHTLY_RIGHT()  {                        // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
 
   servo.write(80);
   digitalWrite(IN1,HIGH);   
@@ -89,7 +91,7 @@ void SLIGHTLY_RIGHT(){                          // VEHICLE SWERVES SLIGHTLY LESS
 } 
 
 
-void STOP(){                                    // VEHICLE STOPS COMPLETELY//
+void STOP()  {                                  // VEHICLE STOPS COMPLETELY//
   servo.write(90);
   digitalWrite(IN1,LOW);   
   digitalWrite(IN2,LOW);  
@@ -170,7 +172,6 @@ void followBlock_red(int blockIndex, const char* color)  {         // MAIN CODE 
 }
 
 
-
 void loop()  {  
 
 STRAIGHT_SLOW();
@@ -188,7 +189,7 @@ if (pixy.ccc.numBlocks) {
     Serial.println("Green object detected");
     followBlock_green(i, "Green");
     }
-    }
+  }
 }
 
 

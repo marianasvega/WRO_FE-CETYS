@@ -1,4 +1,4 @@
-// CODE FOR COLOR SENSOR (TCS3200) IN ARDUINO //
+////// CODE FOR COLOR SENSOR (TCS3200) IN ARDUINO //////
 
 #define s0 11                      // DEFINE MODULE PIN WIRING IN ARDUINO //
 #define s1 12

@@ -1,7 +1,7 @@
-// CODE FOR BASIC DRIVING OF THE VEHICLE //
+////// CODE FOR BASIC DRIVING OF THE VEHICLE //////
 // USING SERVOMOTOR AND DC MOTOR IN ARDUINO //
 
-#include <Servo.h>
+#include <Servo.h>               // INCLUDE THE NECESSARY LIBRARIES //
 
 Servo servo;
 

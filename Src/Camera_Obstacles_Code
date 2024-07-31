@@ -1,0 +1,194 @@
+#include <Servo.h>                             // INCLUDE THE NECESSARY LIBRARIES //
+Servo servo;
+#include <Pixy2.h>
+
+////// DEFINE PIN CONNECTIONS ON ARDUINO UNO //////
+
+//// DC MOTOR CONNECTED TO A L298N ////
+int IN1 = 4; 
+int IN2 = 3; 
+int ENA = 5; 
+int speed = 150;                                // WE DECLARE A VARIABLE FOR BASE SPEED //
+
+//// CAMERA (PIXY 2) ////
+Pixy2 pixy;                                     // CAMERA NAME //
+
+void setup()  {   
+ 
+  pinMode(IN1, OUTPUT); 
+  pinMode(IN2, OUTPUT);    
+  pinMode(ENA, OUTPUT);   
+
+  servo.attach(A3); 
+  servo.write(90); 
+
+  pixy.init();
+
+  Serial.begin(9600);
+ 
+}  
+
+void STRAIGHT(){                                // VEHICLE MOVES STRAIGHT FORWARD //
+
+  servo.write(90);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);
+  analogWrite(ENA,200);                         // SET SPEED FOR THE MOTOR //
+  delay(10);
+ 
+} 
+
+void STRAIGHT_SLOW(){                           // VEHICLE MOVES STRAIGHT FORWARD BUT SLOWER //
+
+  servo.write(90);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);
+  analogWrite(ENA,100);                         // SET SPEED FOR THE MOTOR //
+  delay(10);
+ 
+} 
+
+void RIGHT(){                                   // VEHICLE SWERVES RIGHT //
+
+  servo.write(70);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);   
+  analogWrite(ENA,140);                         // SET SPEED FOR THE MOTOR //
+  delay(10);
+  
+} 
+
+void LEFT(){                                    // VEHICLE SWERVES LEFT //
+
+  servo.write(110);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);   
+  analogWrite(ENA,140);                         // SET SPEED FOR THE MOTOR //
+  delay(10);
+
+}
+
+void SLIGHTLY_LEFT(){                           // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+
+  servo.write(100);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);   
+  analogWrite(ENA,140);                         // SET SPEED FOR THE MOTOR //
+  delay(10);
+  
+}
+
+void SLIGHTLY_RIGHT(){                          // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+
+  servo.write(80);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);              
+  analogWrite(ENA,140);                         // SET SPEED FOR THE MOTOR //
+  delay(10);
+
+} 
+
+
+void STOP(){                                    // VEHICLE STOPS COMPLETELY//
+  servo.write(90);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,LOW);  
+  analogWrite(ENA,0);
+  delay(10);
+
+}
+
+void followBlock_green(int blockIndex, const char* color)  {        // MAIN CODE TO AVOIDE A GREEN OBSTACLE //
+  int x = pixy.ccc.blocks[blockIndex].m_x;
+  int y = pixy.ccc.blocks[blockIndex].m_y;
+
+  Serial.print("Following ");
+  Serial.print(color);
+  Serial.print(" block at (");
+  Serial.print(x);
+  Serial.print(", ");
+  Serial.print(y);
+  Serial.println(")");
+
+   if(x < 158)
+  {
+    LEFT();
+    delay(2000);
+    SLIGHTLY_RIGHT();
+    delay(700);
+    STRAIGHT();
+  }
+      else if(x > 158)
+  {
+    SLIGHTLY_LEFT();
+    delay(1000);
+    SLIGHTLY_RIGHT();
+    delay(700);
+    STRAIGHT();
+  }
+  else 
+  {
+    STRAIGHT();
+  }
+}
+
+void followBlock_red(int blockIndex, const char* color)  {         // MAIN CODE TO AVOID A RED OBSTACLE //
+  int x = pixy.ccc.blocks[blockIndex].m_x;
+  int y = pixy.ccc.blocks[blockIndex].m_y;
+
+  Serial.print("Following ");
+  Serial.print(color);
+  Serial.print(" block at (");
+  Serial.print(x);
+  Serial.print(", ");
+  Serial.print(y);
+  Serial.println(")");
+
+  if(x > 158)
+  {
+    RIGHT();
+    delay(2000);
+    SLIGHTLY_LEFT();
+    delay(700);
+    STRAIGHT();
+  }
+
+  else if(x < 158)
+  {
+    SLIGHTLY_RIGHT();
+    delay(1000);
+    SLIGHTLY_LEFT();
+    delay(700);
+    STRAIGHT();
+  }
+  
+  else
+  {
+    STRAIGHT();
+  }
+
+}
+
+
+
+void loop()  {  
+
+STRAIGHT_SLOW();
+
+pixy.ccc.getBlocks();
+
+if (pixy.ccc.numBlocks) {
+      
+  if (pixy.ccc.blocks[i].m_signature == 1) {            // 1 EQUALS RED BLOCK IN OUR CAMERA CONFIGURATION //
+    Serial.println("Red object detected");
+    followBlock_red(i, "Red");
+    }
+
+  else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN OUT CAMERA CONFIGURATION //
+    Serial.println("Green object detected");
+    followBlock_green(i, "Green");
+    }
+    }
+}
+
+

@@ -1,3 +1,5 @@
+////// CODE FOR THE ULTRASONIC SENSORS (DISTANCE) AND BUTTON TO START OR END LOOP //////
+
 #include <LEANTEC_ControlMotor.h>           // INCLUDE THE NECESSARY LIBRARIES //
 #include <Servo.h>
 Servo servo;

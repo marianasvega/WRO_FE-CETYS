@@ -30,12 +30,13 @@ if (pixy.ccc.blocks[i].m_signature == 1) {            // 1 EQUALS RED BLOCK IN O
 else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN OUT CAMERA CONFIGURATION //
   Serial.println("Green object detected");
   followBlock_green(i, "Green");
-}
-  
+}  
   ```
 In this code, when the camera detects our signature number 1 (red) it activates our module "followBlock_red" which makes the robot swerve right, according to the manual rules. When it detects signature number 2 (green), it swerves left.
   
 ### Front Tire Axle (HS-322HD Servo) 🛞
+
+
 ### Ultrasonic Sensors (HC-SR04) 📏
 ### Rear Tire Axle (DC Motor and LEGO Diferential) ⚙️
 ## How it all comes together (explaining the code) 💻

@@ -15,6 +15,7 @@ FOTO
 # Introduction
 Arturo, our autonomous vehicle, is able to perfom remarkably thanks to a variety of diferent mechanisms that when, assembled together correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. So as to make clear how our robot operates, we will continue to explain how each of these mechanisms work, including which specific electronic components were used and the logic behind it´s code.
 
+
 ### Robot´s Vision (Pixy 2 Camera) 📷
   For our vehicle to be able to detect the obstacles present on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programed to detect specific signatures by recognizing it´s shape and/or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the sintaxis of the commands correspond to the Pixy2 Arduino library):
 
@@ -35,6 +36,6 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 In this code, when the camera detects our signature number 1 (red) it activates our module "followBlock_red" which makes the robot swerve right, according to the manual rules. When it detects signature number 2 (green), it swerves left.
   
 ### Front Tire Axle (HS-322HD Servo) 🛞
-### Ultrasonic Sensors (HC-SR04) 
+### Ultrasonic Sensors (HC-SR04) 📏
 ### Rear Tire Axle (DC Motor and LEGO Diferential) ⚙️
-## How it all comes together (explaining the code) 
+## How it all comes together (explaining the code) 💻

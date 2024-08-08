@@ -13,10 +13,10 @@ FOTO
 * `Video` Contains the video.md file with the link to a video where driving demonstration exists.
 
 # Introduction
-Arturo, our autonomous vehicle, is able to perfom remarkably thanks to a variety of diferent mechanisms that when, assembled together correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. So as to make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind it´s code.
+Arturo, our autonomous vehicle, is able to perfom remarkably thanks to a variety of diferent mechanisms that when, assembled together correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. So as to make clear how our robot operates, we will continue to explain how each of these mechanisms work, including which specific electronic components were used and the logic behind it´s code.
 
 ### Robot´s Vision (Pixy 2 Camera) 📷
-  For our vehicle to be able to detect the obstacles present on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programed to detect specific signatures by recognizing it´s shape and or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the sintaxis of the commands correspond to the Pixy2 Arduino library):
+  For our vehicle to be able to detect the obstacles present on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programed to detect specific signatures by recognizing it´s shape and/or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the sintaxis of the commands correspond to the Pixy2 Arduino library):
 
   ```ruby
 pixy.ccc.getBlocks();

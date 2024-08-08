@@ -13,14 +13,26 @@ FOTO
 * `Video` Contains the video.md file with the link to a video where driving demonstration exists.
 
 # Introduction
-Arturo, our autonomous vehicle, is able to perfom remarkably thanks to a variety of diferent mechanisms that when, assembled together correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. So as to make clear how our robot operates, we will continue to explain how each of this mechanisms works, including which specific electronic components were used and the logic behind it´s code.
+Arturo, our autonomous vehicle, is able to perfom remarkably thanks to a variety of diferent mechanisms that when, assembled together correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. So as to make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind it´s code.
 
 ### Robot´s Vision (Pixy 2 Camera) 📷
-  For our vehicle to be able to detect the obstacles present on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programed to detect specific signatures by recognizing it´s shape and or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code:
+  For our vehicle to be able to detect the obstacles present on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programed to detect specific signatures by recognizing it´s shape and or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the sintaxis of the commands correspond to the Pixy2 Arduino library):
 
   ```
-hols hols hols
-```
+pixy.ccc.getBlocks();
+
+if (pixy.ccc.blocks[i].m_signature == 1) {            // 1 EQUALS RED BLOCK IN OUR CAMERA CONFIGURATION //
+  Serial.println("Red object detected");
+  followBlock_red(i, "Red");
+}
+
+else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN OUT CAMERA CONFIGURATION //
+  Serial.println("Green object detected");
+  followBlock_green(i, "Green");
+}
+  
+  ```
+In this code, when the camera detects our signature number 1 (red) it activates our module "followBlock_red" which makes the robot swerve right, according to the manual rules. When it detects signature number 2 (green), it swerves left.
   
 ### Front Tire Axle (HS-322HD Servo) 🛞
 ### Ultrasonic Sensors (HC-SR04) 

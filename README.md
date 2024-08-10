@@ -35,8 +35,15 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 In this code, when the camera detects our signature number 1 (red) it activates our module "followBlock_red" which makes the robot swerve right, according to the manual rules. When it detects signature number 2 (green), it swerves left.
   
 ### Front Tire Axle (HS-322HD Servo) 🛞
-With the purpose to give the vehicle more direction at every turn, we installed a free steer system in the front tire axle controlled by an HS-322HD Servo. The servo´s blades connect to an axle completely designed by us that leaves a space in between so that the tires can run freely. With the speed provided by the motor in the rear axle 
+With the purpose to give the vehicle more direction at every turn, we installed a free steer system in the front tire axle controlled by an HS-322HD Servo. The servo´s blades connect to an axle completely designed by us that leaves a space in between so that the tires can run freely. With the speed provided by the motor in the rear axle, the front tires don´t need any extra power to reel forward. 
+
+To be able to use the servo in the code, it is necessary to include the "Servo.h" library. After that, all that it takes to change the servo´s angle is the following command. 
+
+```ruby
+servo.write(45);
+```
 
 ### Ultrasonic Sensors (HC-SR04) 📏
+
 ### Rear Tire Axle (DC Motor and LEGO Diferential) ⚙️
 ## How it all comes together (explaining the code) 💻

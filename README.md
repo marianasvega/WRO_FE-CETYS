@@ -4,7 +4,7 @@ This is the official repository for the CETYS Team participating in the Future E
 FOTO
 
 # Content
-* `Models` Files for models used by 3D printers, laser cutting machines, or CNC machines to produce the vehicle elements.
+* `Models` Files for models used by 3D printers to produce the vehicle elements.
 * `Others` Files which can be used to understand how to prepare the vehicle for the competition. 
 * `Schemes` Diagrams of the electromechanical components used in the vehicle and how they connect.
 * `Src` Contains code of control software for all components which were programmed to participate in the competition.
@@ -14,6 +14,12 @@ FOTO
 
 # Introduction
 Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.
+
+# Building process
+
+### Electronic components
+
+# Mechanism explanation
 
 ### Robot´s Vision (Pixy 2 Camera) 📷
   For our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programmed to detect specific signatures by recognizing it´s shape and/or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntaxis of the commands correspond to the Pixy2 Arduino library):

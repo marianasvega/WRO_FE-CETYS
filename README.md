@@ -20,7 +20,7 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 ### Electronic components
 |             Component            |    Quantity    |
 | -------------------------------- |     :---:      |
-| * Arduino Uno R3                 |       1        |
+| #### Arduino Uno R3                 |       1        |
 | * Servo HS-322HD                 |       1        |
 | * Ultrasonic Sensor HC-SR04      |       3        |      
 | * Faulhaber-type DC Motor        |       1        |

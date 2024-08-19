@@ -18,11 +18,14 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 # Building process
 
 ### Electronic components
-|        Name        |    Quantity    |        Component        |
-| ------------------ | -------------- | ----------------------- |
-| U1                 |       1        | Arduino Uno R3          |
-| Content Cell   | Content Cell   | -------------  |
-| Content Cell   | Content Cell   | -------------  |
+|        Name        |    Quantity    |         Component         |
+| ------------------ | -------------- | ------------------------- |
+| U1                 |       1        | Arduino Uno R3            |
+| SERVO1             |       1        | SERVO HS-322HD            |
+| DISTULTRASONICO1   |                |                           |      
+| DISTULTRASONICO2   |       3        | ULTRASONIC SENSOR HC-SR04 |
+| DISTULTRASONICO3   |                |                           |
+| SERVO1             |       1        | SERVO HS-322HD          |
 
 # Mechanism explanation
 

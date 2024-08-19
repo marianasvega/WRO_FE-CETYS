@@ -18,13 +18,19 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 # Building process
 
 ### Electronic components
-|        Name        |    Quantity    |         Component         |
-| ------------------ |     :---:      | ------------------------- |
-| U1                 |       1        | Arduino Uno R3            |
-| SERVO1             |       1        | SERVO HS-322HD            |
-| DISTULTRASONICO1 \| DISTULTRASONICO2 \| DISTULTRASONICO3 |        3        |             ULTRASONIC SENSOR HC-SR04              |      
-| M1   |        1        |                Faulhaber-type DC Motor           |
-| U2             |       1        | SERVO HS-322HD          |
+|                           Name                           |    Quantity    |            Component           |
+| -------------------------------------------------------- |     :---:      | ------------------------------ |
+| U1                                                       |       1        | Arduino Uno R3                 |
+| SERVO1                                                   |       1        | Servo HS-322HD                 |
+| DISTULTRASONICO1 \| DISTULTRASONICO2 \| DISTULTRASONICO3 |       3        | Ultrasonic Sensor HC-SR04      |      
+| M1                                                       |       1        | Faulhaber-type DC Motor        |
+| U2                                                       |       1        | H-bridge Motor Driver L298N    |
+| S1                                                       |       1        | Pushbutton                     |
+| BAT1                                                     |       1        | 9V Battery                     |
+| BAT2                                                     |       1        | 7.4V Battery                   |
+| R1                                                       |       1        | 330Ω Resistor                  |
+| CAM1                                                     |       1        | Pixy 2 Camera                  |
+| SW1 \| SW2                                               |       2        | Switch Button Interruptor KCD1 |
 
 # Mechanism explanation
 

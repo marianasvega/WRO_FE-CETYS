@@ -18,8 +18,9 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 # Building process
 
 ### Electronic components
-|      Name      |    Quantity    |    Component   |
-| -------------- | -------------- | -------------- |
+|        Name        |    Quantity    |        Component        |
+| ------------------ | -------------- | ----------------------- |
+| U1                 |       1        | Arduino Uno R3          |
 | Content Cell   | Content Cell   | -------------  |
 | Content Cell   | Content Cell   | -------------  |
 

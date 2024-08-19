@@ -23,9 +23,8 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 | U1                 |       1        | Arduino Uno R3            |
 | SERVO1             |       1        | SERVO HS-322HD            |
 | DISTULTRASONICO1 DISTULTRASONICO2 DISTULTRASONICO3 |        3        |             ULTRASONIC SENSOR HC-SR04              |      
-| DISTULTRASONICO2   |       3        | ULTRASONIC SENSOR HC-SR04 |
-| DISTULTRASONICO3   |                |                           |
-| SERVO1             |       1        | SERVO HS-322HD          |
+| M1   |        1        |                Faulhaber-type DC Motor           |
+| U2             |       1        | SERVO HS-322HD          |
 
 # Mechanism explanation
 

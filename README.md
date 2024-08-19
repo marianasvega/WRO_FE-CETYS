@@ -29,6 +29,7 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 | 9V Battery                     |       1        |
 | 7.4V Battery                   |       1        |
 | 330Ω Resistor                  |       1        |
+| Capacitor                      |       1        |
 | Pixy 2 Camera                  |       1        |
 | Switch Button Interruptor KCD1 |       2        |
 

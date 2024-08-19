@@ -18,6 +18,10 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 # Building process
 
 ### Electronic components
+|      Name      |    Quantity    |    Component   |
+| -------------- | -------------- | -------------- |
+| Content Cell   | Content Cell   | -------------  |
+| Content Cell   | Content Cell   | -------------  |
 
 # Mechanism explanation
 

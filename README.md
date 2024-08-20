@@ -36,6 +36,7 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 
 # Mechanism explanation
 
+
 ### Robot´s Vision (Pixy 2 Camera) 📷
 
 In order for our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programmed to detect specific signatures by recognizing it´s shape and/or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntaxis of the commands correspond to the Pixy2 Arduino library):
@@ -91,4 +92,5 @@ long DisCalc(int TP, int EP) {
 >The "distance" variable represents the distance from the sensor to the wall. It’s computed by multiplying the duration of the echo by the speed of sound (0.034 cm/µs) and dividing by 2 to account for the round trip of the sound wave. This distance helps in determining when to navigate around obstacles.
 
 ### Rear Tire Axle (Faulhaber MOT-165 and LEGO Diferential) ⚙️
+
 ### How it all comes together (explaining the code) 💻

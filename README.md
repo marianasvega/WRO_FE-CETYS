@@ -1,5 +1,4 @@
 # CETYS FUTURE ENGINEERS 2024 🤖
-<span style="color:red">Este texto es rojo</span>
 
 This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
 
@@ -17,20 +16,20 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 
 # Electronic components
 
-|              Component             |    Quantity    |
-| ---------------------------------- |     :---:      |
-| **Arduino Uno R3**                 |       1        |
-| **Servo HS-322HD**                 |       1        |
-| **Ultrasonic Sensor HC-SR04**      |       3        |      
-| **Faulhaber-type DC Motor**        |       1        |
-| **H-bridge Motor Driver L298N**    |       1        |
-| **Pushbutton**                     |       1        |
-| **9V Battery**                     |       1        |
-| **7.4V Battery**                   |       1        |
-| **330Ω Resistor**                  |       1        |
-| **Capacitor**                      |       1        |
-| **Pixy 2 Camera**                  |       1        |
-| **Switch Button Interruptor KCD1** |       2        |
+|              Component             |    Quantity   |
+| ---------------------------------- |     :---:     |
+| **Arduino Uno R3**                 |       1       |
+| **Servo HS-322HD**                 |       1       |
+| **Ultrasonic Sensor HC-SR04**      |       3       |      
+| **Faulhaber-type DC Motor**        |       1       |
+| **H-bridge Motor Driver L298N**    |       1       |
+| **Pushbutton**                     |       1       |
+| **9V Battery**                     |       1       |
+| **7.4V Battery**                   |       1       |
+| **330Ω Resistor**                  |       1       |
+| **Capacitor**                      |       1       |
+| **Pixy 2 Camera**                  |       1       |
+| **Switch Button Interruptor KCD1** |       2       |
 
 # Mechanism explanation
 

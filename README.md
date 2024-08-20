@@ -1,6 +1,6 @@
 # CETYS FUTURE ENGINEERS 2024 🤖
 
-<code style="color : name_color">text</code>
+<code style="color : blue">text</code>
 
 This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
 

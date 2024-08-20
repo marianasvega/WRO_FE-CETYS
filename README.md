@@ -1,4 +1,5 @@
-$${\color{blue}# CETYS FUTURE ENGINEERS 2024} 🤖
+$${\color{blue} CETYS FUTURE ENGINEERS 2024} 🤖
+
 This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
 
 $${\color{red}Welcome} \space {\color{lightblue}To } \space {\color{lightgreen}Github}$$ - the correct way to write \color{color-name}

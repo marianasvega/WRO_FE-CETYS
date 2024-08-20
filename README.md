@@ -15,9 +15,8 @@ FOTO
 # Introduction
 Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.
 
-# Building process
+# Electronic components
 
-### Electronic components
 |              Component             |    Quantity    |
 | ---------------------------------- |     :---:      |
 | **Arduino Uno R3**                 |       1        |

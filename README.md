@@ -2,6 +2,8 @@
 
 This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
 
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
+
 **Team Members:** Mariana Sofia Vega Contreras, Claudio Ivan Lopez Valle & Mariana Flores Martinez.
 
 # Content

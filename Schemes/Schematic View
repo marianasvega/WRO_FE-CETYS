@@ -1,0 +1,6 @@
+## Schematic View
+
+This schematic provides a visual representation of all the key electronic components involved in the vehicle's operation, 
+except for the Pixy Camera(connected to the ICSP pin on the Arduino), two Switch Button Interruptor KCD1s, and the 7.4V Battery.
+
+For more detailed information about the electronic components and their connections, please refer to the README section.

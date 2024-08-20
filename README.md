@@ -32,8 +32,10 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 
 # Mechanism explanation
 
-<font color="blue">### Robot´s Vision (Pixy 2 Camera) 📷 </font>
-  
+<font color="blue"> test </font>
+
+### Robot´s Vision (Pixy 2 Camera) 📷
+
 For our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programmed to detect specific signatures by recognizing it´s shape and/or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntaxis of the commands correspond to the Pixy2 Arduino library):
 
   ```ruby

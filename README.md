@@ -18,6 +18,9 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 
 # Electronic components
 
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
+
 |              Component             |    Quantity   |
 | ---------------------------------- |     :---:     |
 | **Arduino Uno R3**                 |       1       |

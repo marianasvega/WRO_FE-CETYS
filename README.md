@@ -32,7 +32,7 @@ Arturo, our autonomous vehicle, can perform remarkably thanks to a variety of di
 
 # Mechanism explanation
 
-<font color="green"> test </font>
+<code style="color : name_color">text</code>
 
 ### Robot´s Vision (Pixy 2 Camera) 📷
 

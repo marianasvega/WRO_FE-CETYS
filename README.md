@@ -1,5 +1,7 @@
 # CETYS FUTURE ENGINEERS 2024 🤖
 
+`Team Members:`Mariana Sofia Vega Contreras, Claudio Ivan Lopez Valle & Mariana Flores Martinez.
+
 This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
 
 # Content

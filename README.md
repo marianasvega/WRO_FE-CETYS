@@ -79,7 +79,7 @@ long DisCalc(int TP, int EP) {
   return distance;
 }
 ```
-The distance variable represents the distance from the sensor to the wall. It’s computed by multiplying the duration of the echo by the speed of sound (0.034 cm/µs) and dividing by 2 to account for the round trip of the sound wave. This distance helps in determining when to navigate around obstacles.
+The "distance" variable represents the distance from the sensor to the wall. It’s computed by multiplying the duration of the echo by the speed of sound (0.034 cm/µs) and dividing by 2 to account for the round trip of the sound wave. This distance helps in determining when to navigate around obstacles.
 
 ### Rear Tire Axle (Faulhaber MOT-165 and LEGO Diferential) ⚙️
 ### How it all comes together (explaining the code) 💻

@@ -102,7 +102,7 @@ long DisCalc(int TP, int EP) {
 
 We would like to take a space to thank our sponsors, without whom this project could not have come to be. Your help not only made a significant contribution to the progress of this autonomous vehicle but aided in the innovation of technology and design that may very well help other future engineers. We are very grateful for your kindness.
 
-Sincerely, Mariana Flores, Claudio Lopez, and Mariana Vega.
+Sincerely, Mariana Flores, Claudio López, and Mariana Vega.
 
 ![CETYS (1920 x 500 px) (2)](https://github.com/user-attachments/assets/27a9672c-2f5b-43ed-83a7-8f4b370a78d4)
 

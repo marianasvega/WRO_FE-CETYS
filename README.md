@@ -2,7 +2,7 @@
 
 This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
 
-**Team Members:** Mariana Sofia Vega Contreras, Claudio Ivan Lopez Valle & Mariana Flores Martinez.
+**Team Members:** Mariana Sofia Vega Contreras, Claudio Iván López Valle & Mariana Flores Martínez.
 
 ![CETYS (1920 x 500 px)](https://github.com/user-attachments/assets/a858a081-411f-4ef9-bae7-2771a890f4c4)
 
@@ -97,3 +97,12 @@ long DisCalc(int TP, int EP) {
 ### Rear Tire Axle (Faulhaber MOT-165 and LEGO Diferential) ⚙️
 
 ### How it all comes together (explaining the code) 💻
+
+#### Acknowledgments
+
+We would like to take a space to thank our sponsors, without whom this project could not have come to be. Your help not only made a significant contribution to the progress of this autonomous vehicle, but aided in the innovation of technology and design that may very well help other future engineers. We are very grateful for your kindness.
+
+Sincerely, Mariana Flores, Claudio López, and Mariana Vega.
+
+![CETYS (1920 x 500 px) (1)](https://github.com/user-attachments/assets/12e5bbe0-bd82-4487-be68-e7b67b2b1f7d)
+

@@ -16,7 +16,7 @@ This is the official repository for the CETYS Team participating in the Future E
 * `Vehicle Photos` Contains 6 photos of the vehicle.
 * `Video` Contains the video.md file with the link to a video where a driving demonstration exists.
 
-# Introduction
+# Introduction 👷‍♀👨‍💻👩‍🔧
 Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.
 
 ![ARTURO](https://github.com/user-attachments/assets/d106c4f6-eba3-49f1-b9f9-482aa9c6ef04)

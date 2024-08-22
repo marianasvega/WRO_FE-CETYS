@@ -73,6 +73,11 @@ To use the servo in the code, it is necessary to include the "Servo.h" library. 
 servo.write(45);
 ```
 
+
+https://github.com/user-attachments/assets/9f7d6865-2d72-41aa-ab10-754b8ceb8559
+
+
+
 ### Ultrasonic Sensors (HC-SR04) 📏
 The main challenge in this category is to be able to turn corners and, consequently, avoid hitting walls. For this we used Ultrasonic Sensors; these are devices that measure the distance between itself and an object by emitting ultrasonic sound waves, which then convert the reflected sound into an electrical signal. To obtain said electrical signal and interpret it in centimeters we use the following code:
 

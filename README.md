@@ -80,8 +80,6 @@ To use the servo in the code, it is necessary to include the "Servo.h" library. 
 servo.write(45);
 ```
 <br>
-_______
-
 <br>
 
 ### Ultrasonic Sensors (HC-SR04) 📏

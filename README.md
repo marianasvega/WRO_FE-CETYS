@@ -22,7 +22,7 @@ Arturo, our autonomous vehicle, can perform thanks to a variety of different mec
 ![ARTURO](https://github.com/user-attachments/assets/d106c4f6-eba3-49f1-b9f9-482aa9c6ef04)
 
 
-# Electronic components
+## Electronic components
 
 |              Component              |    Quantity   |
 | ----------------------------------- |     :---:     |
@@ -39,9 +39,10 @@ Arturo, our autonomous vehicle, can perform thanks to a variety of different mec
 | **Capacitor**                       |       1       |
 | **Pixy 2 Camera**                   |       1       |
 | **Switch Button Interruptor KCD1**  |       2       |
+<br>
+<br>
 
 # Mechanism explanation
-
 
 ### Robot´s Vision (Pixy 2 Camera) 📷
 
@@ -60,9 +61,12 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
   followBlock_green(i, "Green");
 }  
   ```
+<br>
 
 > [!NOTE]
 > In this code, when the camera detects our signature number 1 (red) it activates our module "followBlock_red" which makes the robot swerve right, according to the manual rules. When it detects signature number 2 (green), it swerves left.
+<br>
+<br>
   
 ### Front Tire Axle (HS-322HD Servo) 🛞
 To give the vehicle more direction at every turn, we installed a free steer system in the front tire axle controlled by an HS-322HD Servo. The servo´s blades connect to an axle completely designed by us that leaves a space in between so that the tires can run freely. With the speed the motor provides in the rear axle, the front tires don´t need any extra power to reel forward. 
@@ -70,6 +74,8 @@ To give the vehicle more direction at every turn, we installed a free steer syst
 The following is an example of what we explained in the previous paragraph.
 
 https://github.com/user-attachments/assets/525eaddd-1dce-4344-86ee-807fe781c140
+
+<br>
 
 > [!NOTE]
 >The servomotor shown in the video is not the same as the one we used in the end.
@@ -102,9 +108,12 @@ long DisCalc(int TP, int EP) {
   return distance;
 }
 ```
+<br>
 
 > [!NOTE]
 >The "distance" variable represents the distance from the sensor to the wall. It’s computed by multiplying the duration of the echo by the speed of sound (0.034 cm/µs) and dividing by 2 to account for the round trip of the sound wave. This distance helps in determining when to navigate around obstacles.
+<br>
+<br>
 
 ### Rear Tire Axle (Faulhaber MOT-165 and LEGO Diferential) ⚙️
 

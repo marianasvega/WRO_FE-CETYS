@@ -79,8 +79,10 @@ To use the servo in the code, it is necessary to include the "Servo.h" library. 
 ```ruby
 servo.write(45);
 ```
+<br>
+_______
 
-
+<br>
 
 ### Ultrasonic Sensors (HC-SR04) 📏
 The main challenge in this category is to be able to turn corners and, consequently, avoid hitting walls. For this we used Ultrasonic Sensors; these are devices that measure the distance between itself and an object by emitting ultrasonic sound waves, which then convert the reflected sound into an electrical signal. To obtain said electrical signal and interpret it in centimeters we use the following code:
@@ -108,7 +110,8 @@ long DisCalc(int TP, int EP) {
 
 ### Rear Tire Axle (Faulhaber MOT-165 and LEGO Diferential) ⚙️
 
-### How it all comes together (explaining the code) 💻
+
+## How it all comes together (explaining the code) 💻
 
 # Acknowledgments
 

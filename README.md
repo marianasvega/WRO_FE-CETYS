@@ -19,7 +19,8 @@ This is the official repository for the CETYS Team participating in the Future E
 # Introduction
 Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.
 
-![WhatsApp Image 2024-08-20 at 5 05 17 PM](https://github.com/user-attachments/assets/9d98c939-2a5a-4799-965b-a5a93bd9cf72)
+![WhatsApp Image 2024-08-20 at 5 05 17 PM](https://github.com/user-attachments/assets/de03110d-bd7f-4ba1-87b1-5301c3c00826)
+
 
 
 # Electronic components

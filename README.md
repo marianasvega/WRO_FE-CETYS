@@ -67,14 +67,18 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 ### Front Tire Axle (HS-322HD Servo) 🛞
 To give the vehicle more direction at every turn, we installed a free steer system in the front tire axle controlled by an HS-322HD Servo. The servo´s blades connect to an axle completely designed by us that leaves a space in between so that the tires can run freely. With the speed the motor provides in the rear axle, the front tires don´t need any extra power to reel forward. 
 
+The following is an example of what we explained in the previous paragraph.
+
+https://github.com/user-attachments/assets/525eaddd-1dce-4344-86ee-807fe781c140
+
+> [!NOTE]
+>The servomotor shown in the video is not the same as the one we used in the end.
+
 To use the servo in the code, it is necessary to include the "Servo.h" library. After that, all that it takes to change the servo´s angle is the following command. 
 
 ```ruby
 servo.write(45);
 ```
-
-
-https://github.com/user-attachments/assets/9f7d6865-2d72-41aa-ab10-754b8ceb8559
 
 
 

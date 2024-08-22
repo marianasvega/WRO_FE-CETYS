@@ -6,6 +6,7 @@ This is the official repository for the CETYS Team participating in the Future E
 
 ![CETYS (1920 x 500 px)](https://github.com/user-attachments/assets/a858a081-411f-4ef9-bae7-2771a890f4c4)
 
+<br>
 
 # Content
 * `Models` Files for models used by 3D printers to produce the vehicle elements.
@@ -119,9 +120,12 @@ long DisCalc(int TP, int EP) {
 <br>
 
 ### Rear Tire Axle (Faulhaber MOT-165 and LEGO Diferential) ⚙️
-
+<br>
+<br>
 
 ## How it all comes together (explaining the code) 💻
+<br>
+<br>
 
 # Acknowledgments
 

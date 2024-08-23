@@ -24,9 +24,10 @@ Arturo, our autonomous vehicle, can perform thanks to a variety of different mec
 
 ![ARTURO](https://github.com/user-attachments/assets/d106c4f6-eba3-49f1-b9f9-482aa9c6ef04)
 
-<p align="center">
-  <img width="460" height="300" src="[![ARTURO](https://github.com/user-attachments/assets/d106c4f6-eba3-49f1-b9f9-482aa9c6ef04](https://private-user-images.githubusercontent.com/172332692/360167614-d106c4f6-eba3-49f1-b9f9-482aa9c6ef04.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjQzODEwNDQsIm5iZiI6MTcyNDM4MDc0NCwicGF0aCI6Ii8xNzIzMzI2OTIvMzYwMTY3NjE0LWQxMDZjNGY2LWViYTMtNDlmMS1iOWY5LTQ4MmFhOWM2ZWYwNC5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwODIzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDgyM1QwMjM5MDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZTJhZDUxZGZjOTUwY2Q2MTJhYWQzMDc3NzI2YjYyOWVlMmYwM2Q1NGRlNGZmYjAyM2E0ZmFhNmVmZTBhMWRhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.kGWYm68lg65KunWPimB2I7N1GDMduceJwHrT07ULoGE))">
-</p>
+<div style="display: flex; align-items: flex-start;">
+  <img align="left" width="100" height="100" src="https://github.com/user-attachments/assets/d106c4f6-eba3-49f1-b9f9-482aa9c6ef04" alt="ARTURO" style="margin-right: 10px;"/>
+  <p>Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.</p>
+</div>
 
 ![ARTURO](https://github.com/user-attachments/assets/d106c4f6-eba3-49f1-b9f9-482aa9c6ef04)
 

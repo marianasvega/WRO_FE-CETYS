@@ -18,6 +18,14 @@ This is the official repository for the CETYS Team participating in the Future E
 * `Video` Contains the video.md file with the link to a video where a driving demonstration exists.
 
 ** **
+![Uploading Screenshot 2024-08-22 at 7.53.02 p.m..png…]()
+
+# Introduction 👷‍♀👨‍💻👩‍🔧
+
+<div style="display: flex; align-items: flex-start;">
+  <img align="left" width="150" height="150" src="![Uploading Screenshot 2024-08-22 at 7.53.02 p.m..png…]()" style="margin-right: 20px;"/>
+  <p><br>Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.</p>
+</div>
 
 # Introduction 👷‍♀👨‍💻👩‍🔧
 

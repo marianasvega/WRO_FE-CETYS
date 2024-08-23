@@ -20,13 +20,12 @@ This is the official repository for the CETYS Team participating in the Future E
 ** **
 
 # Introduction 👷‍♀👨‍💻👩‍🔧
-Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.
 
-<div style="float: left; margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/d106c4f6-eba3-49f1-b9f9-482aa9c6ef04" alt="ARTURO" width="300"/>
+<div style="display: flex; align-items: flex-start;">
+  <img src="https://github.com/user-attachments/assets/d106c4f6-eba3-49f1-b9f9-482aa9c6ef04" alt="ARTURO" width="300" style="margin-right: 10px;"/>
+  <p>Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.</p>
 </div>
 
-Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.
 
 
 # Introduction 👷‍♀👨‍💻👩‍🔧

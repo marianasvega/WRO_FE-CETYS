@@ -7,7 +7,6 @@ This is the official repository for the CETYS Team participating in the Future E
 ![CETYS (1920 x 500 px)](https://github.com/user-attachments/assets/a858a081-411f-4ef9-bae7-2771a890f4c4)
 
 ** **
-
 # Content
 * `Models` Files for models used by 3D printers to produce the vehicle elements.
 * `Others` Files which can be used to understand how to prepare the vehicle for the competition. 
@@ -18,18 +17,15 @@ This is the official repository for the CETYS Team participating in the Future E
 * `Video` Contains the video.md file with the link to a video where a driving demonstration exists.
 
 ** **
-
 # Introduction 👷‍♀👨‍💻👩‍🔧
 
 <div style="display: flex; align-items: flex-start;">
   <img align="left" width="190" src="https://github.com/user-attachments/assets/efe0c299-f04c-4936-b50a-8a8307767ee0" alt="ARTURO" style="margin-right: 20px;"/>
   <p><br>Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.</p>
 </div>
-
-<br><br>
+<br>
 
 ** **
-
 # Electronic components
 
 |              Component              |    Quantity   |

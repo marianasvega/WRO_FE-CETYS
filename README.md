@@ -77,7 +77,10 @@ To enhance the vehicle's direction at every turn, we installed a free-steering s
 
 The following is an example of what we explained in the previous paragraph.
 
-https://github.com/user-attachments/assets/525eaddd-1dce-4344-86ee-807fe781c140
+<div align="center">
+  <video width="340" src="https://github.com/user-attachments/assets/525eaddd-1dce-4344-86ee-807fe781c140" controls width="600">
+  </video>
+</div>
 
 <br>
 

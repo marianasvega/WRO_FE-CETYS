@@ -50,7 +50,7 @@ Arturo, our autonomous vehicle, can perform thanks to a variety of different mec
 
 ### `Robot´s Vision (Pixy 2 Camera) 📷`
 
-In order for our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programmed to detect specific signatures by recognizing it´s shape and/or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntaxis of the commands correspond to the Pixy2 Arduino library):
+(the syntaIn order for our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the The Pixy2 Camera is a versatile vision sensor designed for robotics and automation projects. It offers powerful image recognition capabilities and is user-friendly for integrating visual processing into various applications. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code xis of the commands correspond to the Pixy2 Arduino library):
 
   ```ruby
 pixy.ccc.getBlocks();
@@ -73,7 +73,7 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 <br>
   
 ### `Front Tire Axle (HS-322HD Servo) 🛞`
-To give the vehicle more direction at every turn, we installed a free steer system in the front tire axle controlled by an HS-322HD Servo. The servo´s blades connect to an axle completely designed by us that leaves a space in between so that the tires can run freely. With the speed the motor provides in the rear axle, the front tires don´t need any extra power to reel forward. 
+To enhance the vehicle's direction at every turn, we installed a free-steering system on the front axle, controlled by an HS-322HD Servo. The servo’s linkage connects to a custom-designed axle with a gap that allows the tires to rotate freely. Given the speed provided by the rear axle motor, the front tires do not require additional power to move forward.
 
 The following is an example of what we explained in the previous paragraph.
 
@@ -93,7 +93,7 @@ servo.write(45);
 <br>
 
 ### `Ultrasonic Sensors (HC-SR04) 📏`
-The main challenge in this category is to be able to turn corners and, consequently, avoid hitting walls. For this we used Ultrasonic Sensors; these are devices that measure the distance between itself and an object by emitting ultrasonic sound waves, which then convert the reflected sound into an electrical signal. To obtain said electrical signal and interpret it in centimeters we use the following code:
+The primary challenge in this category is navigating corners and avoiding collisions with walls. To address this, we employed ultrasonic sensors, which measure the distance to an object by emitting ultrasonic sound waves and converting the reflected waves into an electrical signal. To process and interpret this signal in centimeters, we use the following code:
 
 ```ruby
 long DisCalc(int TP, int EP) {
@@ -119,9 +119,19 @@ long DisCalc(int TP, int EP) {
 <br>
 <br>
 
-### `Rear Tire Axle (Faulhaber MOT-165 and LEGO Diferential) ⚙️`
+### `Rear Tire Axle (Faulhaber MOT-165 and LEGO Differential) ⚙️`
+The most crucial mechanism of any vehicle is its drive system, and we aimed to replicate this as closely as possible. After some trial and error during the building process, we decided to incorporate a LEGO differential kit to simulate real-world driving dynamics (you can find the kit [here](https://www.amazon.com/dp/B0C4LFN1HD/ref=sspa_dk_detail_0?psc=1&pd_rd_i=B0C4LFN1HD&pd_rd_w=IBBZq&content-id=amzn1.sym.386c274b-4bfe-4421-9052-a1a56db557ab&pf_rd_p=386c274b-4bfe-4421-9052-a1a56db557ab&pf_rd_r=YCBYSZ8SNM5K3903VGBB&pd_rd_wg=8Vf9g&pd_rd_r=37648874-6ee4-4abb-b28e-2df1ea089964&s=toys-and-games&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWxfdGhlbWF0aWM)). In the video provided, you can see our custom differential in action, where we designed and attached additional LEGO components. For a step-by-step guide on building your own, please refer to the "Others" folder in this repository.
+<br>
+https://github.com/user-attachments/assets/f3da6e59-015e-47f0-a9b9-cd48972c9948
+<br>
+
+> [!NOTE]
+>If you want to learn how a differential works you can watch [this](https://www.youtube.com/watch?v=K4JhruinbWc) video but basically a differential gear allows wheels on the same axle to rotate at different speeds. It works by using a set of gears to distribute torque between the wheels, enabling them to turn at different rates, which is essential for smooth cornering. If 𝑇 is the total torque supplied by the engine to the differential, and it is divided between the two wheels, then the torque 𝑇<sub>1</sub> on one wheel and 𝑇<sub>2</sub> on the other wheel satisfy 𝑇 = 𝑇<sub>1</sub> + 𝑇<sub>2</sub>.
+<br>
+The motor used on this mechanism is a Faulhaber MOT-165. We opted for this motor because it usually operates at voltages ranging from 6V to 12V, the speed of the motor varies with voltage and load conditions, but it is designed to achieve high RPM (revolutions per minute), and it provides a modest amount of torque, suitable for small, precise applications. It is important to mention that the motor and it´s driver, the L298N dual H-Bridge, have their own power supply, **a Li-Po battery of 1000 mAh and 7.4V**.
 <br>
 <br>
+
 
 ## How it all comes together (explaining the code) 💻
 <br>

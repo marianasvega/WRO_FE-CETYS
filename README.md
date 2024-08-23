@@ -48,7 +48,7 @@ Arturo, our autonomous vehicle, can perform thanks to a variety of different mec
 
 # Mechanism explanation
 
-### `Robot´s Vision (Pixy 2 Camera)` 📷
+### `Robot´s Vision (Pixy 2 Camera) 📷`
 
 In order for our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera. Pixy2 can be programmed to detect specific signatures by recognizing it´s shape and/or color. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntaxis of the commands correspond to the Pixy2 Arduino library):
 
@@ -72,7 +72,7 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 <br>
 <br>
   
-### Front Tire Axle (HS-322HD Servo) 🛞
+### `Front Tire Axle (HS-322HD Servo) 🛞`
 To give the vehicle more direction at every turn, we installed a free steer system in the front tire axle controlled by an HS-322HD Servo. The servo´s blades connect to an axle completely designed by us that leaves a space in between so that the tires can run freely. With the speed the motor provides in the rear axle, the front tires don´t need any extra power to reel forward. 
 
 The following is an example of what we explained in the previous paragraph.
@@ -92,7 +92,7 @@ servo.write(45);
 <br>
 <br>
 
-### Ultrasonic Sensors (HC-SR04) 📏
+### `Ultrasonic Sensors (HC-SR04) 📏`
 The main challenge in this category is to be able to turn corners and, consequently, avoid hitting walls. For this we used Ultrasonic Sensors; these are devices that measure the distance between itself and an object by emitting ultrasonic sound waves, which then convert the reflected sound into an electrical signal. To obtain said electrical signal and interpret it in centimeters we use the following code:
 
 ```ruby
@@ -119,7 +119,7 @@ long DisCalc(int TP, int EP) {
 <br>
 <br>
 
-### Rear Tire Axle (Faulhaber MOT-165 and LEGO Diferential) ⚙️
+### `Rear Tire Axle (Faulhaber MOT-165 and LEGO Diferential) ⚙️`
 <br>
 <br>
 

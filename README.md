@@ -73,7 +73,7 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 <br>
   
 ### `Front Tire Axle (HS-322HD Servo) 🛞`
-To enhance the vehicle's direction at every turn, we installed a free-steering system on the front axle, controlled by an HS-322HD Servo. The servo’s linkage connects to a custom-designed axle with a gap that allows the tires to rotate freely. Given the speed provided by the rear axle motor, the front tires do not require additional power to move forward.
+To enhance the vehicle's direction at every turn, we installed a free-steering system on the front axle, controlled by an HS-322HD Servo. This servo features a robust metal gear train, providing durability and reliability even under heavy load conditions. The servo operates with a 180-degree range of motion and is known for its precision and responsiveness. The HS-322HD is also equipped with a high-torque coreless motor, which enhances its performance and longevity, making it a popular choice for applications where consistent and powerful actuation is essential. The servo’s linkage connects to a custom-designed axle with a gap that allows the tires to rotate freely. Given the speed provided by the rear axle motor, the front tires do not require additional power to move forward.
 
 The following is an example of what we explained in the previous paragraph.
 
@@ -93,7 +93,7 @@ servo.write(45);
 <br>
 
 ### `Ultrasonic Sensors (HC-SR04) 📏`
-The primary challenge in this category is navigating corners and avoiding collisions with walls. To address this, we employed ultrasonic sensors, which measure the distance to an object by emitting ultrasonic sound waves and converting the reflected waves into an electrical signal. To process and interpret this signal in centimeters, we use the following code:
+The primary challenge in this category is navigating corners and avoiding collisions with walls. To address this, we employed the HSR04 ultrasonic sensor, which operates by emitting ultrasonic pulses and measuring the time it takes for the echoes to return after bouncing off an object. This time delay is then converted into a distance measurement, allowing the sensor to accurately detect objects and measure distances with precision. The HSR04 sensor typically has a range of 2 centimeters to 4 meters and is favored for its ease of integration with microcontrollers like Arduino due to its simplicity and cost-effectiveness. Its compact design and straightforward interface make it ideal for applications involving obstacle detection, proximity sensing, and distance measurement in various DIY and industrial projects. To process and interpret this signal given in centimeters, we use the following code:
 
 ```ruby
 long DisCalc(int TP, int EP) {

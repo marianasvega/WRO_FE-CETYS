@@ -6,7 +6,7 @@ This is the official repository for the CETYS Team participating in the Future E
 
 ![CETYS (1920 x 500 px)](https://github.com/user-attachments/assets/a858a081-411f-4ef9-bae7-2771a890f4c4)
 
-** **
+* *
 
 # Content
 * `Models` Files for models used by 3D printers to produce the vehicle elements.

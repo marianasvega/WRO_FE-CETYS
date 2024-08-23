@@ -20,7 +20,7 @@ This is the official repository for the CETYS Team participating in the Future E
 # Introduction 👷‍♀👨‍💻👩‍🔧
 
 <div style="display: flex; align-items: flex-start;">
-  <img align="left" width="190" src="https://github.com/user-attachments/assets/edb0bdbe-c9d1-404c-8f57-1add86ea7a9b" alt="ARTURO" style="margin-right: 20px;"/>
+  <img align="left" width="190" src="https://github.com/user-attachments/assets/5f3e63f8-bbd5-40c3-ac24-5c255352a6ce" alt="ARTURO" style="margin-right: 20px;"/>
   <p><be></BR>Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.</p>
 </div>
 <br>

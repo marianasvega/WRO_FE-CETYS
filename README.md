@@ -88,6 +88,8 @@ The following is an example of what we explained in the previous paragraph.
 > [!WARNING]
 >The servomotor and wheels shown in the video are not the same as the ones we used in the end.
 
+<br>
+
 To use the servo in the code, it is necessary to include the "Servo.h" library. After that, all that it takes to change the servo´s angle is the following command. 
 
 ```ruby

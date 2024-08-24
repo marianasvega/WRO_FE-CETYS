@@ -1,6 +1,6 @@
 # CETYS FUTURE ENGINEERS 2024 🤖
 
-<div style="text-align: justify;"> This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.</div>
+This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
   
 **Team Members:** Mariana Sofia Vega Contreras, Claudio Iván López Valle & Mariana Flores Martínez.
 
@@ -75,11 +75,11 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 <br>
   
 ### `Front Tire Axle (HS-322HD Servo) 🛞`
-<div style="text-align: justify;">
+
 To enhance the vehicle's direction at every turn, we installed a free-steering system on the front axle, controlled by an HS-322HD Servo. This servo features a robust metal gear train, providing durability and reliability even under heavy load conditions. The servo operates with a 180-degree range of motion and is known for its precision and responsiveness. The HS-322HD is also equipped with a high-torque coreless motor, which enhances its performance and longevity, making it a popular choice for applications where consistent and powerful actuation is essential. The servo’s linkage connects to a custom-designed axle with a gap that allows the tires to rotate freely. Given the speed provided by the rear axle motor, the front tires do not require additional power to move forward.
 
 The following is an example of what we explained in the previous paragraph.
-</div>
+
 <div align="center">
   <video width="340" src="https://github.com/user-attachments/assets/525eaddd-1dce-4344-86ee-807fe781c140" controls width="600">
   </video>

@@ -85,8 +85,8 @@ The following is an example of what we explained in the previous paragraph.
 
 <br>
 
-> [!NOTE]
->The servomotor shown in the video is not the same as the one we used in the end.
+> [!WARNING]
+>The servomotor and wheels shown in the video are not the same as the one we used in the end.
 
 To use the servo in the code, it is necessary to include the "Servo.h" library. After that, all that it takes to change the servo´s angle is the following command. 
 

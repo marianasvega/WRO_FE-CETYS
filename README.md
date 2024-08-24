@@ -1,3 +1,5 @@
+** **
+
 # CETYS FUTURE ENGINEERS 2024 🤖
 
 This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
@@ -7,6 +9,7 @@ This is the official repository for the CETYS Team participating in the Future E
 ![CETYS (1920 x 500 px)](https://github.com/user-attachments/assets/a858a081-411f-4ef9-bae7-2771a890f4c4)
 
 ** **
+
 # Content
 * `Models` Files for models used by 3D printers to produce the vehicle elements.
 * `Others` Files which can be used to understand how to prepare the vehicle for the competition. 
@@ -17,6 +20,7 @@ This is the official repository for the CETYS Team participating in the Future E
 * `Video` Contains the video.md file with the link to a video where a driving demonstration exists.
 
 ** **
+
 # Introduction 👷‍♀👨‍💻👩‍🔧
 
 <div style="display: flex; align-items: flex-start;">
@@ -26,6 +30,7 @@ This is the official repository for the CETYS Team participating in the Future E
 <br>
 
 ** **
+
 # Electronic components
 
 |              Component              |    Quantity   |

@@ -1,6 +1,6 @@
 ** **
 
 ## Open Challenge⚙️
-**Visit the following YouTube link:** [Open challenge demonstration](https://youtu.be/yhvIsWnVM4E)
+**Visit the following YouTube link:** [Open challenge demonstration](https://youtu.be/UetUEMxAGJ0)
 
 ** **

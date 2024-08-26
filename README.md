@@ -160,9 +160,10 @@ The motor used in this mechanism is a Faulhaber MOT-165. We opted for this motor
 <br>
 <br>
 
+** **
 
 ## How it all comes together (explaining the code) 💻
-We will now discuss how all of the previously mentioned mechanisms assemble together in our final code (Open and Obstacle Challenge). Before we start, we will add all of the functions used allong the code to use as reference for when they appear.
+We will now discuss how all of the previously mentioned mechanisms assemble together in our final code (Open and Obstacle Challenge). Before we start, we will show all of the functions used along the code to use as reference for when they appear next.
 
 ```ruby
 void printDistances(long distanceLeft, long distanceMid, long distanceRight) {
@@ -410,7 +411,7 @@ if (digitalRead(buttonPin) == HIGH && cont == 1) {              // STOP //
 if (start == true) {                                            // BUTTON IS PRESSED AND CODE BEGINS //
 ```
 <br>
-- Then we use our funtions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
+- Then we use our functions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
 
 ```ruby
  for (int i = 0; i < numSensors; i++) {                        // CALCULATE DISTANCES //
@@ -421,7 +422,7 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 <br>
 
--If our middle distance (the one facing forward) detects a distances less than 90 cm, it may be because a turn is near.
+- If our middle distance (the one facing forward) detects a distances less than 90 cm, it may be because a turn is near.
 
 ```ruby
  if (distanceMid < 90) {                                       // PREPARE FOR A TURN //
@@ -433,7 +434,7 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 <br>
 
--Now we check if there is in fact a turn, either left or right. While doing the turn, the vehicle must constantly keep checking the distances so as to avoid false readings. In the case that the turn was not completed, the vehicle must return and correct.
+- Now we check if there is in fact a turn, either left or right. While doing the turn, the vehicle must constantly keep checking the distances so as to avoid false readings. In the case that the turn was not completed, the vehicle must return and correct.
 
 ```ruby
  if (distanceMid < 100 && distances[0] > 100) {
@@ -477,7 +478,7 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 <br>
 
--If the middle distance detected something less than 90 but there wasn´t a turn near, the vehicle must continue straight forward, or in the case that it´s too close to any wall, it must correct.
+- If the middle distance detected something less than 90 but there wasn´t a turn near, the vehicle must continue straight forward, or in the case that it´s too close to any wall, it must correct.
 
 ```ruby
  else if(distances[1] < 35 || distances[0] < 35){              // VEHICLE IS TOO CLOSE TO A WALL //
@@ -490,7 +491,6 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 
 <br>
-<be>
 
 ** **
 

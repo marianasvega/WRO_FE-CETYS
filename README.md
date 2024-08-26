@@ -15,12 +15,12 @@ This is the official repository for the CETYS Team participating in the Future E
 
 # Content
 * `Models` Files for models used by 3D printers to produce the vehicle elements.
-* `Others` Files which can be used to understand how to prepare the vehicle for the competition. 
+* `Others` Links of videos to understand how to prepare the vehicle for the competition. 
 * `Schemes` Diagrams of the electromechanical components used in the vehicle and how they connect.
-* `Src` Contains code of control software for all components which were programmed to participate in the competition.
+* `Src` Contains source codes for all components which were programmed to participate in the competition.
 * `Team Photos` Contains 2 photos of the team.
 * `Vehicle Photos` Contains 6 photos of the vehicle.
-* `Video` Contains the video.md file with the link to a video where a driving demonstration exists.
+* `Video` Contains the link to a video where a driving demonstration exists.
 <br>
 
 ** **

@@ -162,6 +162,260 @@ The motor used in this mechanism is a Faulhaber MOT-165. We opted for this motor
 
 
 ## How it all comes together (explaining the code) 💻
+We will now discuss how all of the previously mentioned mechanisms assemble together in our final code (Open and Obstacle Challenge). Before we start, we will add all of the functions used allong the code to use as reference for when they appear.
+
+```ruby
+void printDistances(long distanceLeft, long distanceMid, long distanceRight) {
+  Serial.print("Dis Left: ");
+  Serial.print(distanceLeft);
+  Serial.print(" ");
+  Serial.print("Dis Mid: ");
+  Serial.print(distanceMid);
+  Serial.print(" ");
+  Serial.print("Dis Right: ");
+  Serial.println(distanceRight);
+}
+
+
+int DisCalc(int TP, int EP){                                    // CALCULATE DISTANCES //
+  long duration = -1;
+  int reading = 0;
+  int cont = 0;
+  digitalWrite(TP, LOW);
+
+  while ((duration!=0) || (cont <5)){
+    delayMicroseconds(2);
+    digitalWrite(TP, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TP, LOW);
+    long duration = pulseIn(EP, HIGH,10000);
+
+    if (duration>0){
+      reading = duration * 0.034/2;
+    }
+    else{
+      reading = 120;
+    }
+ 
+    return reading;
+  }
+ 
+} 
+
+long DisCalchLong(int TP, int EP) {                            // CALCULATE DISTANCES BY GETTING AN AVERAGE //
+  const int numReadings = 30;
+  long readings[numReadings];  
+  long sum = 0;
+
+  for (int i = 0; i < numReadings; i++) {
+    digitalWrite(TP, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TP, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TP, LOW);
+
+    long duration = pulseIn(EP, HIGH);
+    readings[i] = duration * 0.034 / 2;
+    sum += readings[i]; 
+    delay(5); 
+  }
+
+  long minValue = readings[0];
+  long maxValue = readings[0];
+  for (int i = 1; i < numReadings; i++) {
+    if (readings[i] < minValue) {
+      minValue = readings[i];
+    }
+    if (readings[i] > maxValue) {
+      maxValue = readings[i];
+    }
+  }
+
+  sum -= minValue;
+  sum -= maxValue;
+  long average = sum / (numReadings - 2);
+  return average;
+
+}
+
+
+void STRAIGHT(){                                              // VEHICLE MOVES STRAIGHT FORWARD //
+  servo.write(90);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);
+  analogWrite(ENA,250);                                       // SET SPEED FOR THE MOTOR //
+  delay(10);
+} 
+
+void STRAIGHT_SLOW(){                                         // VEHICLE MOVES STRAIGHT BUT SLOWER //
+  servo.write(90);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);
+  analogWrite(ENA,60);                                        // SET SPEED FOR THE MOTOR //
+  delay(10);
+} 
+
+void RIGHT(){                                                 // VEHICLE SWERVES RIGHT //
+  servo.write(60);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,110);                                       // SET SPEED FOR THE MOTOR //
+  delay(10);
+} 
+
+void LEFT(){                                                  // VEHICLE SWERVES LEFT //
+  servo.write(110);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,110);                                       // SET SPEED FOR THE MOTOR //
+  delay(10);
+}
+
+void SLIGHTLY_LEFT(){                                         // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+  servo.write(105);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,120);                                       // SET SPEED FOR THE MOTOR //
+  delay(10);
+}
+
+void SLIGHTLY_LEFT_MID(){                                     // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+  servo.write(100);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,120);                                       // SET SPEED FOR THE MOTOR //
+  delay(10);
+}
+
+void SLIGHTLY_LEFT_MIN(){                                     // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+  servo.write(95);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,120);                                       // SET SPEED FOR THE MOTOR //
+  delay(10);
+}
+
+void SLIGHTLY_RIGHT(){                                        // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+  servo.write(75);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);              
+  analogWrite(ENA,120);   
+  delay(10);                                                  // SET SPEED FOR THE MOTOR //
+
+} 
+
+void SLIGHTLY_RIGHT_MID(){                                    // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+  servo.write(80);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);              
+  analogWrite(ENA,120);   
+  delay(10);                                                  // SET SPEED FOR THE MOTOR //
+
+} 
+
+void SLIGHTLY_RIGHT_MIN(){                                    // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+  servo.write(85); 
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);              
+  analogWrite(ENA,120);   
+  delay(10);                                                  // SET SPEED FOR THE MOTOR //
+
+} 
+
+void STOP(){                                                  // VEHICLE STOPS COMPLETELY//
+  servo.write(90);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,LOW);  
+  analogWrite(ENA,0);
+  delay(10);
+}
+
+void corregir(int d1, int d3){                                // VEHICLE IS TOO CLOSE TO A WALL //
+ if (d1 < d3) {
+    if (d1 < 15) {
+      SLIGHTLY_RIGHT();
+    } 
+
+    else if (d1 < 30) { 
+      SLIGHTLY_RIGHT_MID();
+    } 
+
+    else if (d1 < 35) {  
+      SLIGHTLY_RIGHT_MIN();  
+    } 
+
+    else if(d1 > 35){
+      SLIGHTLY_LEFT();
+    }    
+
+    else {
+      STRAIGHT();
+    }
+  } 
+
+  else if (d3 < d1) {
+    if (d3 < 15) {
+      SLIGHTLY_LEFT();
+    } 
+
+    else if (d3 < 30) {
+      SLIGHTLY_LEFT_MID();
+    } 
+
+    else if (d3 < 35) {
+      SLIGHTLY_LEFT_MIN();
+    } 
+   
+    else {
+      STRAIGHT();
+    }
+  }
+  
+}
+
+```
+<br>
+- Now, let´s begin with the main code. First, we check if the button has been pressed. If it hasn´t, the robot must remain still until instructed otherwise.
+
+```ruby
+if (digitalRead(buttonPin) == HIGH && cont == 0) {              // START //
+  start = true; 
+  cont = 1;
+  delay(500); 
+}
+
+if (digitalRead(buttonPin) == HIGH && cont == 1) {              // STOP //
+  start = false;        
+  cont = 0;
+  delay(500); 
+}
+
+if (start == true) {                                            // BUTTON IS PRESSED AND CODE BEGINS //
+```
+<br>
+- Then we use our funtions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
+
+```ruby
+ for (int i = 0; i < numSensors; i++) {                        // CALCULATE DISTANCES //
+    distances[i] = DisCalc(TrigPins[i], EchoPins[i]);
+  }
+  long distanceMid = DisCalc(Trig_US2, Echo_US2);  
+  printDistances(distances[0], distanceMid, distances[1]);
+```
+<br>
+
+- If our middle distance (the one facing forward) detects a distances less than 90 cm, it may be because a turn is near.
+
+```ruby
+ if (distanceMid < 90) {                                       // PREPARE FOR A TURN //
+    STRAIGHT_SLOW();
+  } 
+  else {
+    STRAIGHT();
+  }
+```
+<br>
+
 
 
 <br>

@@ -8,8 +8,11 @@ This is the official repository for the CETYS Team participating in the Future E
 
 ![CETYS (1920 x 500 px)](https://github.com/user-attachments/assets/a858a081-411f-4ef9-bae7-2771a890f4c4)
 
-** **
+<br>
+<br>
 
+** **
+<br>
 # Content
 * `Models` Files for models used by 3D printers to produce the vehicle elements.
 * `Others` Files which can be used to understand how to prepare the vehicle for the competition. 
@@ -18,6 +21,8 @@ This is the official repository for the CETYS Team participating in the Future E
 * `Team Photos` Contains 2 photos of the team.
 * `Vehicle Photos` Contains 6 photos of the vehicle.
 * `Video` Contains the video.md file with the link to a video where a driving demonstration exists.
+<br>
+<br>
 
 ** **
 
@@ -25,7 +30,7 @@ This is the official repository for the CETYS Team participating in the Future E
 
 <div style="display: flex; align-items: flex-start;">
   <img align="left" width="190" src="https://github.com/user-attachments/assets/5f3e63f8-bbd5-40c3-ac24-5c255352a6ce" alt="ARTURO" style="margin-right: 20px;"/>
-  <p><be></BR>Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.</p>
+  <p><be>Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.</p>
 </div>
 <br>
 

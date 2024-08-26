@@ -9,10 +9,9 @@ This is the official repository for the CETYS Team participating in the Future E
 ![CETYS (1920 x 500 px)](https://github.com/user-attachments/assets/a858a081-411f-4ef9-bae7-2771a890f4c4)
 
 <br>
-<br>
 
 ** **
-<br>
+
 
 # Content
 * `Models` Files for models used by 3D printers to produce the vehicle elements.
@@ -28,14 +27,16 @@ This is the official repository for the CETYS Team participating in the Future E
 
 # Introduction 👷‍♀👨‍💻👩‍🔧
 <br>
+
 <div style="display: flex; align-items: flex-start;">
   <img align="left" width="190" src="https://github.com/user-attachments/assets/5f3e63f8-bbd5-40c3-ac24-5c255352a6ce" alt="ARTURO" style="margin-right: 20px;"/>
   <p><be>Arturo, our autonomous vehicle, can perform thanks to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.</p>
 </div>
 <br>
+<br>
 
 ** **
-<br>
+
 
 # Electronic components
 
@@ -56,10 +57,11 @@ This is the official repository for the CETYS Team participating in the Future E
 | **Switch Button Interruptor KCD1**  |       2       |
 
 <br>
+
 ** **
 
 # Mechanism explanation
-<br>
+
 
 ### `Robot´s Vision (Pixy 2 Camera) 📷`
 
@@ -140,6 +142,7 @@ long DisCalc(int TP, int EP) {
 
 ### `Rear Tire Axle (Faulhaber MOT-165 and LEGO Differential) ⚙️`
 The most crucial mechanism of any vehicle is its drive system, and we aimed to replicate this as closely as possible. After some trial and error during the building process, we decided to incorporate a LEGO differential kit to simulate real-world driving dynamics (you can find the kit [here](https://www.amazon.com/dp/B0C4LFN1HD/ref=sspa_dk_detail_0?psc=1&pd_rd_i=B0C4LFN1HD&pd_rd_w=IBBZq&content-id=amzn1.sym.386c274b-4bfe-4421-9052-a1a56db557ab&pf_rd_p=386c274b-4bfe-4421-9052-a1a56db557ab&pf_rd_r=YCBYSZ8SNM5K3903VGBB&pd_rd_wg=8Vf9g&pd_rd_r=37648874-6ee4-4abb-b28e-2df1ea089964&s=toys-and-games&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWxfdGhlbWF0aWM)). In the video provided, you can see our custom differential in action, where we designed and attached additional LEGO components. For a step-by-step guide on building your own, please refer to the "Others" folder in this repository.
+
 <br>
 
 <div align="center">

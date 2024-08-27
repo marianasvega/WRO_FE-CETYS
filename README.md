@@ -162,9 +162,9 @@ The motor used in this mechanism is a Faulhaber MOT-165. We opted for this motor
 
 <br>
 
-** **
-
 <br>
+
+** **
 
 
 ## How it all comes together (explaining the code) 💻

@@ -393,7 +393,7 @@ void CORRECT(int d1, int d3){                                // VEHICLE IS TOO C
 
 ```
 <br>
-- Now, let´s begin with the main code. First, we check if the button has been pressed. If it hasn´t, the robot must remain still until instructed otherwise.
+ - Now, let´s begin with the main code. First, we check if the button has been pressed. If it hasn´t, the robot must remain still until instructed otherwise.
 
 ```ruby
 if (digitalRead(buttonPin) == HIGH && cont == 0) {              // START //
@@ -411,7 +411,7 @@ if (digitalRead(buttonPin) == HIGH && cont == 1) {              // STOP //
 if (start == true) {                                            // BUTTON IS PRESSED AND CODE BEGINS //
 ```
 <br>
-- Then we use our functions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
+ - Then we use our functions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
 
 ```ruby
  for (int i = 0; i < numSensors; i++) {                        // CALCULATE DISTANCES //

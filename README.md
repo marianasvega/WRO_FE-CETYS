@@ -399,7 +399,7 @@ void CORRECT(int d1, int d3){                                // VEHICLE IS TOO C
 ```
 <br>
 
- - Now, let´s begin with the main code. First, we check if the button has been pressed. If it hasn´t, the robot must remain still until instructed otherwise.
+  1. Now, let´s begin with the main code. First, we check if the button has been pressed. If it hasn´t, the robot must remain still until instructed otherwise.
 
 ```ruby
 if (digitalRead(buttonPin) == HIGH && cont == 0) {              // START //
@@ -416,9 +416,9 @@ if (digitalRead(buttonPin) == HIGH && cont == 1) {              // STOP //
 
 if (start == true) {                                            // BUTTON IS PRESSED AND CODE BEGINS //
 ```
-<br>
+<be>
 
- - Then we use our functions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
+ 2. Then we use our functions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
 
 ```ruby
  for (int i = 0; i < numSensors; i++) {                        // CALCULATE DISTANCES //
@@ -429,7 +429,7 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 <br>
 
-- If our middle distance (the one facing forward) detects a distances less than 90 cm, it may be because a turn is near.
+  3. If our middle distance (the one facing forward) detects a distance less than 90 cm, it may be because a turn is near.
 
 ```ruby
  if (distanceMid < 90) {                                       // PREPARE FOR A TURN //
@@ -441,7 +441,7 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 <br>
 
-- Now we check if there is in fact a turn, either left or right. While doing the turn, the vehicle must constantly keep checking the distances so as to avoid false readings. In the case that the turn was not completed, the vehicle must return and correct.
+  4. Now we check if there is in fact a turn, either left or right. While doing the turn, the vehicle must constantly keep checking the distances to avoid false readings. If the turn was not completed, the vehicle must return and correct.
 
 ```ruby
  if (distanceMid < 100 && distances[0] > 100) {
@@ -485,7 +485,7 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 <br>
 
-- If the middle distance detected something less than 90 but there wasn´t a turn near, the vehicle must continue straight forward, or in the case that it´s too close to any wall, it must correct.
+  5. If the middle distance detected something less than 90 but there wasn´t a turn near, the vehicle must continue straight forward, or in the case that it´s too close to any wall, it must correct.
 
 ```ruby
  else if(distances[1] < 35 || distances[0] < 35){              // VEHICLE IS TOO CLOSE TO A WALL //

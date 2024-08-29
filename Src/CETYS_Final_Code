@@ -1,0 +1,441 @@
+/////// TEAM CETYS FINAL CODE //////
+
+#include <Servo.h>
+Servo servo;
+#include <Pixy2.h>
+Pixy2 pixy;
+
+#define SOUND_SPEED_CM_US 0.034                               // ULTRASONIC SENSORS PARAMETERS //
+#define LONG_MAX 300
+#define LONG_MIN 5
+int LR = 0;
+unsigned long startTime = 0;                                  // VARIABLE TO STORE THE START TIME //
+long duration = 300000;
+
+const int Trig_US1 = A0;                                      // ULTRASONIC PIN CONNECTIONS TO ARDUINO //
+const int Echo_US1 = 8;
+const int Trig_US2 = 9;
+const int Echo_US2 = 7;
+const int Trig_US3 = 6;
+const int Echo_US3 = A1;
+
+const int numSensors = 2;                                     // ULTRASONIC SENSORS CONFIGURATION //
+int TrigPins[numSensors] = {Trig_US1, Trig_US3};
+int EchoPins[numSensors] = {Echo_US1, Echo_US3};
+long distances[numSensors];
+long lastValues[numSensors] = {0, 0};  
+long maxDistance[numSensors] = {280, 280};  
+
+int IN1 = 4;                                                  // MOTOR PIN CONNECTIONS TO ARDUINO //
+int IN2 = 3;                        
+int ENA = 5; 
+
+int cont = 0;                                                 // BUTTON PIN CONNECTIONS TO ARDUINO //                                         
+const char buttonPin = 2; 
+bool start = false;         
+
+void setup() {                                                // PIN MODES //
+
+  Serial.begin(9600);
+  pixy.init();
+
+  pinMode(IN1, OUTPUT); 
+  pinMode(IN2, OUTPUT);    
+  pinMode(ENA, OUTPUT);   
+
+  servo.attach(A3); 
+  servo.write(90); 
+
+  pinMode(Trig_US1, OUTPUT);
+  pinMode(Echo_US1, INPUT);
+  
+  pinMode(Trig_US2, OUTPUT);
+  pinMode(Echo_US2, INPUT);
+
+  pinMode(Trig_US3, OUTPUT);
+  pinMode(Echo_US3, INPUT);
+
+  pinMode(buttonPin,INPUT_PULLUP);
+
+}
+
+void loop() {                                                 // CHECK IF BUTTON HAS BEEN PRESSED //
+
+if (digitalRead(buttonPin) == HIGH && cont == 0) {            // START //
+  start = true; 
+  cont = 1;
+  startTime = millis();                                       // START TIMER //
+  delay(500); 
+}
+
+if (digitalRead(buttonPin) == HIGH && cont == 1) {            // STOP //
+  start = false;        
+  cont = 0;
+  delay(500); 
+}
+
+if (start == true) {
+  pixy.ccc.getBlocks();                                       // DETECT OBSTACLES //
+
+  if(LR == 0){                                                // FIRST TURN //
+  long runDuration = duration;
+    if (millis() - startTime >= runDuration) {                // TIME IS OVER //
+      STOP(); 
+      start = false; 
+    }
+    else{                                                     // OBJECTED DETECTED //
+      if (pixy.ccc.numBlocks){
+        LR = 1;
+        OBSTACLES();
+      }
+      else{
+      OPEN();                                                 // OBJECT IS NOT DETECTED, DO OPEN CHALLENGE //
+      }
+    
+    }
+  }
+
+  if(LR == 1){
+   if (pixy.ccc.numBlocks){
+      LR = 1;
+      OBSTACLES();
+    }
+    else{
+      OPEN();
+    }
+  }
+
+}
+
+else {                                                        // IF BUTTON WAS NOT PRESSED IT MUST REMAIN IN STOP //
+  STOP();
+}
+
+}
+
+
+void printDistances(long distanceLeft, long distanceMid, long distanceRight) {
+  Serial.print("Dis Left: ");
+  Serial.print(distanceLeft);
+  Serial.print(" ");
+  Serial.print("Dis Mid: ");
+  Serial.print(distanceMid);
+  Serial.print(" ");
+  Serial.print("Dis Right: ");
+  Serial.println(distanceRight);
+}
+
+int DisCalc(int TP, int EP){                                  // FUNCTION TO CALCULATE DISTANCES //
+ long duration = -1;
+ int reading = 0;
+ int cont = 0;
+ digitalWrite(TP, LOW);
+
+  while ((duration!=0) || (cont <5)){
+    delayMicroseconds(2);
+    digitalWrite(TP, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TP, LOW);
+      
+    long duration = pulseIn(EP, HIGH,10000);
+      if (duration>0){
+        reading = duration * 0.034/2;
+      }
+      else{
+        reading = 120;
+      }
+
+      return reading;
+  }
+ 
+} 
+
+
+void followBlock_green(int blockIndex, const char* color){    // GREEN OBSTACLE DETECTED //
+ int x = pixy.ccc.blocks[blockIndex].m_x;
+
+  Serial.print("Following ");
+  Serial.print(color);
+  Serial.print(" block at (");
+  Serial.print(x);
+  Serial.println(")");
+
+  if(x < 158){
+    LEFT();
+  }
+  else if(x > 158){
+    SLIGHTLY_LEFT_MIN();
+    delay(100);
+    STRAIGHT();
+  }
+  delay(10);
+}
+
+void followBlock_red(int blockIndex, const char* color){    // RED OBSTACLE DETECTED //
+  int x = pixy.ccc.blocks[blockIndex].m_x;
+
+  Serial.print("Following ");
+  Serial.print(color);
+  Serial.print(" block at (");
+  Serial.print(x);
+  Serial.println(")");
+
+  if(x > 158){
+    RIGHT(); 
+  }
+ else if(x < 158){
+    SLIGHTLY_RIGHT_MIN();
+    delay(100);
+    STRAIGHT();
+  }
+  delay(10);
+} 
+
+void OBSTACLES() {                                         // MAIN OBSTACLE AVOIDANCE CODE //
+
+  int highestPriorityIndex = -1;
+  int highestPrioritySize = 0;
+
+  for (int i = 0; i < pixy.ccc.numBlocks; i++) {
+    int blockWidth = pixy.ccc.blocks[i].m_width;
+    int blockHeight = pixy.ccc.blocks[i].m_height;
+    int blockSize = blockWidth * blockHeight; 
+
+    if (blockSize > highestPrioritySize) {
+      highestPrioritySize = blockSize;
+      highestPriorityIndex = i;
+    }
+  }
+
+  if (highestPriorityIndex != -1) {
+    pixy.ccc.blocks[highestPriorityIndex].print();
+        
+    if (pixy.ccc.blocks[highestPriorityIndex].m_signature == 1) {  
+      Serial.println("Prioritized Red object detected");
+      followBlock_red(highestPriorityIndex, "Red");
+    } 
+    else if (pixy.ccc.blocks[highestPriorityIndex].m_signature == 2) { 
+      Serial.println("Prioritized Green object detected");
+      followBlock_green(highestPriorityIndex, "Green");
+    }
+  }
+}
+
+
+void STRAIGHT(){                                          // VEHICLE MOVES STRAIGHT FORWARD //
+  servo.write(90);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);
+  analogWrite(ENA,200);                                   // SET SPEED FOR THE MOTOR //
+  delay(10);
+} 
+
+void STRAIGHT_SLOW(){                                     // VEHICLE MOVES STRAIGHT FORWARD BUT SLOWER //
+  servo.write(90);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);
+  analogWrite(ENA,50);                                    // SET SPEED FOR THE MOTOR //
+  delay(10);
+} 
+
+void RIGHT(){                                             // VEHICLE SWERVES RIGHT //
+  servo.write(60);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,100);                                   // SET SPEED FOR THE MOTOR //
+  delay(10);
+} 
+
+void LEFT(){                                              // VEHICLE SWERVES LEFT //
+  servo.write(110);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,100);                                   // SET SPEED FOR THE MOTOR //
+  delay(10);
+}
+
+void SLIGHTLY_LEFT(){                                     // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+  servo.write(105);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,120);                                   // SET SPEED FOR THE MOTOR //
+  delay(10);
+}
+
+void REVERSE_RIGHT(){                                     // VEHICLE ACTIVATES REVERSE //
+  servo.write(110);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);   
+  analogWrite(ENA,120);                                   // SET SPEED FOR THE MOTOR //
+  delay(10);
+}
+
+void SLIGHTLY_LEFT_MID(){                                 // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+  servo.write(100);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,120);                                   // SET SPEED FOR THE MOTOR //
+  delay(10);
+}
+
+void SLIGHTLY_LEFT_MIN(){                                 // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+  servo.write(95);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);   
+  analogWrite(ENA,120);                                   // SET SPEED FOR THE MOTOR //
+  delay(10);
+}
+
+void SLIGHTLY_RIGHT(){                                    // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+  servo.write(75);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);              
+  analogWrite(ENA,120);   
+  delay(10);                                              // SET SPEED FOR THE MOTOR //
+
+} 
+
+void REVERSE_LEFT(){                                      // VEHICLE ACTIVATES REVERSE //
+  servo.write(70);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);              
+  analogWrite(ENA,120);   
+  delay(10);                                              // SET SPEED FOR THE MOTOR //
+
+} 
+
+void SLIGHTLY_RIGHT_MID(){                                // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+  servo.write(80);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);              
+  analogWrite(ENA,120);   
+  delay(10);                                              // SET SPEED FOR THE MOTOR //
+
+} 
+
+void SLIGHTLY_RIGHT_MIN(){                                // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+  servo.write(85);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,HIGH);              
+  analogWrite(ENA,120);   
+  delay(10);                                              // SET SPEED FOR THE MOTOR //
+
+} 
+
+
+void STOP(){                                              // VEHICLE STOPS COMPLETELY//
+  servo.write(90);
+  digitalWrite(IN1,LOW);   
+  digitalWrite(IN2,LOW);  
+  analogWrite(ENA,0);
+  delay(10);
+}
+
+
+void CORRECT(int d1, int d3){                             // IN CASE VEHICLE IS TOO CLOSE TO A WALL //
+  
+  if (d1 < d3) {
+    if (d1 < 15) 
+    {
+        SLIGHTLY_RIGHT();
+    } 
+    else if (d1 < 30) 
+    {  // Adjusted threshold from d3 to d1
+        SLIGHTLY_RIGHT_MID();
+    } 
+    else if (d1 < 35) 
+    {  // Adjusted threshold from d3 to d1
+        SLIGHTLY_RIGHT_MIN();
+    } 
+    else if(d1 > 35)
+    {
+      SLIGHTLY_LEFT();
+    }    
+   else 
+    {
+        STRAIGHT();
+    }
+  } 
+  else if (d3 < d1) {
+    if (d3 < 15) 
+    {
+        SLIGHTLY_LEFT();
+    } 
+    else if (d3 < 30) 
+    {
+        SLIGHTLY_LEFT_MID();
+    } 
+    else if (d3 < 35) 
+    {
+        SLIGHTLY_LEFT_MIN();
+    } 
+   
+    else 
+    {
+        STRAIGHT();
+    }
+  } 
+}
+
+
+void OPEN(){                                               // OPEN CHALLENGE //
+
+  for (int i = 0; i < numSensors; i++) {                   // CHECK DISTANCES //
+    distances[i] = DisCalc(TrigPins[i], EchoPins[i]);
+  }
+  long distanceMid = DisCalc(Trig_US2, Echo_US2);  
+  printDistances(distances[0], distanceMid, distances[1]);
+
+  if (distanceMid < 110) {                                 // IF TOO CLOSE TO A WALL, A TURN MIGHT BE NEAR //
+    STRAIGHT_SLOW();
+  } 
+  else {
+    STRAIGHT();
+  }
+
+
+  if (distanceMid < 100 && distances[0] > 100) {          // THERE IS A TURN TO THE LEFT //
+    while (distances[0] > 50) { 
+      for (int i = 0; i < numSensors; i++) {              // CONFIRM DISTANCES //
+        distances[i] = DisCalc(TrigPins[i], EchoPins[i]);  
+      distanceMid = DisCalc(Trig_US2, Echo_US2); 
+      printDistances(distances[0], distanceMid, distances[1]);
+
+      if(distanceMid < 7){                                // VEHICLE MADE A MISTAKE //
+        REVERSE_LEFT();
+        delay(1000);
+      break;
+      }
+
+      LEFT();  
+      duration = 70000;
+             
+    }
+  }
+
+  else if (distanceMid < 100 && distances[1] > 110) {     // THERE IS A TURN TO THE RIGHT //
+    while (distances[1] > 50) {
+      for (int i = 0; i < numSensors; i++) {              // CONFIRM DISTANCES //
+      distances[i] = DisCalc(TrigPins[i], EchoPins[i]);  
+      }
+      distanceMid = DisCalc(Trig_US2, Echo_US2);  
+      printDistances(distances[0], distanceMid, distances[1]);  
+
+      if(distanceMid < 7){                                // VEHICLE MADE A MISTAKE //
+        REVERSE_RIGHT();
+        delay(1000);
+      break;
+      }
+
+      RIGHT();  
+      duration = 85000;
+    }
+  }
+
+  else if(distances[1] < 35 || distances[0] < 35){        // VEHICLE IS TOO CLOSE TO A WALL //
+    CORRECT(distances[0], distances[1]);
+  }
+  else{
+    STRAIGHT();
+  }
+}

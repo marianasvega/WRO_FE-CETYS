@@ -244,6 +244,46 @@ long DisCalchLong(int TP, int EP) {                            // CALCULATE DIST
 
 }
 
+void followBlock_green(int blockIndex, const char* color){    // GREEN OBSTACLE DETECTED //
+ int x = pixy.ccc.blocks[blockIndex].m_x;
+
+  Serial.print("Following ");
+  Serial.print(color);
+  Serial.print(" block at (");
+  Serial.print(x);
+  Serial.println(")");
+
+  if(x < 158){
+    LEFT();
+  }
+  else if(x > 158){
+    SLIGHTLY_LEFT_MIN();
+    delay(100);
+    STRAIGHT();
+  }
+  delay(10);
+}
+
+void followBlock_red(int blockIndex, const char* color){    // RED OBSTACLE DETECTED //
+  int x = pixy.ccc.blocks[blockIndex].m_x;
+
+  Serial.print("Following ");
+  Serial.print(color);
+  Serial.print(" block at (");
+  Serial.print(x);
+  Serial.println(")");
+
+  if(x > 158){
+    RIGHT(); 
+  }
+ else if(x < 158){
+    SLIGHTLY_RIGHT_MIN();
+    delay(100);
+    STRAIGHT();
+  }
+  delay(10);
+} 
+
 
 void STRAIGHT(){                                              // VEHICLE MOVES STRAIGHT FORWARD //
   servo.write(90);
@@ -416,9 +456,37 @@ if (digitalRead(buttonPin) == HIGH && cont == 1) {              // STOP //
 
 if (start == true) {                                            // BUTTON IS PRESSED AND CODE BEGINS //
 ```
-<be>
+<br>
 
- 2. Then we use our functions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
+2. Then, we must check if there is an obstacle present, and swerve to the right condition (left or right).
+```ruby
+ for (int i = 0; i < pixy.ccc.numBlocks; i++) {
+    int blockWidth = pixy.ccc.blocks[i].m_width;
+    int blockHeight = pixy.ccc.blocks[i].m_height;
+    int blockSize = blockWidth * blockHeight; 
+
+    if (blockSize > highestPrioritySize) {
+      highestPrioritySize = blockSize;
+      highestPriorityIndex = i;
+    }
+  }
+
+  if (highestPriorityIndex != -1) {
+    pixy.ccc.blocks[highestPriorityIndex].print();
+        
+    if (pixy.ccc.blocks[highestPriorityIndex].m_signature == 1) {  
+      Serial.println("Prioritized Red object detected");
+      followBlock_red(highestPriorityIndex, "Red");
+    } 
+    else if (pixy.ccc.blocks[highestPriorityIndex].m_signature == 2) { 
+      Serial.println("Prioritized Green object detected");
+      followBlock_green(highestPriorityIndex, "Green");
+    }
+  }
+```
+<br>
+
+ 3. Then we use our functions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
 
 ```ruby
  for (int i = 0; i < numSensors; i++) {                        // CALCULATE DISTANCES //
@@ -429,7 +497,7 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 <br>
 
-  3. If our middle distance (the one facing forward) detects a distance less than 90 cm, it may be because a turn is near.
+  4. If our middle distance (the one facing forward) detects a distance less than 90 cm, it may be because a turn is near.
 
 ```ruby
  if (distanceMid < 90) {                                       // PREPARE FOR A TURN //
@@ -441,7 +509,7 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 <br>
 
-  4. Now we check if there is in fact a turn, either left or right. While doing the turn, the vehicle must constantly keep checking the distances to avoid false readings. If the turn was not completed, the vehicle must return and correct.
+  5. Now we check if there is in fact a turn, either left or right. While doing the turn, the vehicle must constantly keep checking the distances to avoid false readings. If the turn was not completed, the vehicle must return and correct.
 
 ```ruby
  if (distanceMid < 100 && distances[0] > 100) {
@@ -485,7 +553,7 @@ if (start == true) {                                            // BUTTON IS PRE
 ```
 <br>
 
-  5. If the middle distance detected something less than 90 but there wasn´t a turn near, the vehicle must continue straight forward, or in the case that it´s too close to any wall, it must correct.
+  6. If the middle distance detected something less than 90 but there wasn´t a turn near, the vehicle must continue straight forward, or in the case that it´s too close to any wall, it must correct.
 
 ```ruby
  else if(distances[1] < 35 || distances[0] < 35){              // VEHICLE IS TOO CLOSE TO A WALL //

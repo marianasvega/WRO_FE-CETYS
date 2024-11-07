@@ -93,8 +93,9 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 
 During the Mexican National Competition, we observed that our vehicle needed a better steering system that could round corners with much more facility and precision. After much research, we learned about a mechanism named the Ackerman Steering Principle. When a vehicle turns, the inner wheel follows a tighter path than the outer wheel. To ensure smooth turning without excessive tire wear or slipping, the inner wheel needs to turn at a sharper angle than the outer wheel. This is precisely what the Ackermann geometry achieves.
 
-<br>
-![Screenshot 2024-11-06 183028](https://github.com/user-attachments/assets/f4243d8f-ffdb-4eec-84b2-632b57778ccd)
+<br
+ <img align="center" width="190" src="![Screenshot 2024-11-06 183028](https://github.com/user-attachments/assets/c59e34eb-f459-4525-b8af-8c10257fb4f5)" >
+
 Figure 9: Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)
 <br>
 

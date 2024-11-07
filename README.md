@@ -43,10 +43,10 @@ This is the official repository for the CETYS Team that participated in the Futu
 
 |              Component              |    Quantity   |
 | ----------------------------------- |     :---:     |
-| **Arduino Uno R3**                  |       1       |
+| **ESP-WROOM-32**                    |       1       |
 | **Bread Board Mini**                |       1       |
 | **Servo HS-322HD**                  |       1       |
-| **Ultrasonic Sensor HC-SR04**       |       3       |      
+| **Ultrasonic Sensor HC-SR04**       |       5       |      
 | **Faulhaber-type DC Motor**         |       1       |
 | **H-bridge Motor Driver L298N**     |       1       |
 | **Pushbutton**                      |       1       |
@@ -56,6 +56,7 @@ This is the official repository for the CETYS Team that participated in the Futu
 | **Capacitor**                       |       1       |
 | **Pixy 2 Camera**                   |       1       |
 | **Switch Button Interruptor KCD1**  |       2       |
+| **Gyro + Accelerometer MPU-6050**   |       1       |
 
 <br>
 
@@ -66,7 +67,7 @@ This is the official repository for the CETYS Team that participated in the Futu
 
 ### `Robot´s Vision (Pixy 2 Camera) 📷`
 
-In order for our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the The Pixy2 Camera is a versatile vision sensor designed for robotics and automation projects. It offers powerful image recognition capabilities and is user-friendly for integrating visual processing into various applications. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntaxis of the commands correspond to the Pixy2 Arduino library):
+In order for our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera, a versatile vision sensor designed for robotics and automation projects. It offers powerful image recognition capabilities and is user-friendly for integrating visual processing into various applications. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntax of the commands correspond to the Pixy2 Arduino library):
   
   ```ruby
 pixy.ccc.getBlocks();
@@ -88,25 +89,23 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 <br>
 <br>
   
-### `Front Tire Axle (HS-322HD Servo) 🛞`
+### `Front Tire Axle (Ackerman Steering and HS-322HD Servo) 🛞`
 
-To enhance the vehicle's direction at every turn, we installed a free-steering system on the front axle, controlled by an HS-322HD Servo. This servo features a robust metal gear train, providing durability and reliability even under heavy load conditions. The servo operates with a 180-degree range of motion and is known for its precision and responsiveness. The HS-322HD is also equipped with a high-torque coreless motor, which enhances its performance and longevity, making it a popular choice for applications where consistent and powerful actuation is essential. The servo’s linkage connects to a custom-designed axle with a gap that allows the tires to rotate freely. Given the speed provided by the rear axle motor, the front tires do not require additional power to move forward.
+During the Mexican National Competition, we observed that our vehicle needed a better steering system that could round corners with much more facility and precision. After much research, we learned about a mechanism named the Ackerman Steering Principle. When a vehicle turns, the inner wheel follows a tighter path than the outer wheel. To ensure smooth turning without excessive tire wear or slipping, the inner wheel needs to turn at a sharper angle than the outer wheel. This is precisely what the Ackermann geometry achieves.
 
-The following is an example of what we explained in the previous paragraph.
+<br>
+![Screenshot 2024-11-06 183028](https://github.com/user-attachments/assets/f4243d8f-ffdb-4eec-84b2-632b57778ccd)
+Figure 9: Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)
+<br>
 
-<div align="center">
-  <video width="340" src="https://github.com/user-attachments/assets/525eaddd-1dce-4344-86ee-807fe781c140" controls width="600">
-  </video>
-</div>
+When a driver turns the steering wheel, the motion is passed through the steering column to the steering gear. This gear changes the rotation into a pushing or pulling movement, which is sent to the tie rods. The tie rods then adjust the steering arms connected to the wheels. This setup ensures that the inside wheel turns at a sharper angle than the outside wheel, helping the vehicle turn more smoothly and efficiently while reducing tire wear and slip.
+> [!NOTE]
+>For the STL files to print the Ackerman system we used, visit the following link for it is NOT of our property and we give full credits to the owner: [https://github.com/KarenWon9/WRO-FI-Team-Spark](url)
+
 
 <br>
 
-> [!WARNING]
->The servomotor and wheels shown in the video are not the same as the ones we used in the end.
-
-<br>
-
-To use the servo in the code, it is necessary to include the "Servo.h" library. After that, all that it takes to change the servo´s angle is the following command. 
+On the other hand, the HS-322HD is a popular heavy-duty servo known for its durability and performance, and without it, our vehicle would have no direction. It features Hitec's Karbonite gear train, which is significantly stronger than standard nylon gears, making it suitable for various applications. With a good balance of speed and torque, the HS-322HD is often used in RC airplanes, helicopters, and other models. To use the servo in the code, it is necessary to include the "Servo.h" library. After that, all that it takes to change the servo´s angle is the following command. 
 
 ```ruby
 servo.write(45);

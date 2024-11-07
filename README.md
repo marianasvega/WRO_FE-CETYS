@@ -2,7 +2,7 @@
 
 # CETYS FUTURE ENGINEERS 2024 🤖
 
-This is the official repository for the CETYS Team participating in the Future Engineers category at the 2024 Mexican National. Here we will upload all of the processes and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
+This is the official repository for the CETYS Team that participated in the Future Engineers category at the 2024 Mexican National and is soon to compete in the International Final in Izmir, Türkiye!. Here we will upload all of the process, improvements, and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
   
 **Team Members:** Mariana Sofia Vega Contreras, Claudio Iván López Valle & Mariana Flores Martínez.
 
@@ -30,7 +30,8 @@ This is the official repository for the CETYS Team participating in the Future E
 
 <div style="display: flex; align-items: flex-start;">
   <img align="left" width="190" src="https://github.com/user-attachments/assets/5f3e63f8-bbd5-40c3-ac24-5c255352a6ce" alt="ARTURO" style="margin-right: 20px;"/>
-  <p><be>Arturo, our autonomous vehicle, is able to perform due to a variety of different mechanisms that when assembled correctly, can help a robot accomplish a challenge such as the Future Engineers Category in the WRO Competition. To make clear how our robot operates, we will continue to explain how each of these mechanisms works, including which specific electronic components were used and the logic behind its code.</p>
+  <p><be>This report outlines the design, development, and performance of Arturo, the autonomous vehicle developed by our team, the CETYS Future Engineers, for the 2024 World Robot Olympiad. In this document, we will provide a comprehensive overview of our previous work in the Mexican national competition, where we successfully showcased our prototype and the iterative improvements we made in preparation for the international championship in Türkiye.
+</p>
 </div>
 <br>
 <br>

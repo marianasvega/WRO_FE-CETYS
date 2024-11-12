@@ -99,6 +99,10 @@ Figure 9: Design and Development of Four-Wheel Steering for All Terrain Vehicle 
 <br>
 
 When a driver turns the steering wheel, the motion is passed through the steering column to the steering gear. This gear changes the rotation into a pushing or pulling movement, which is sent to the tie rods. The tie rods then adjust the steering arms connected to the wheels. This setup ensures that the inside wheel turns at a sharper angle than the outside wheel, helping the vehicle turn more smoothly and efficiently while reducing tire wear and slip.
+
+<br>
+
+
 > [!NOTE]
 >For the STL files to print the Ackerman system we used, visit the following link for it is NOT of our property and we give full credits to the owner: [https://github.com/KarenWon9/WRO-FI-Team-Spark](url)
 
@@ -115,10 +119,16 @@ servo.write(45);
 
 ### `Ultrasonic Sensors (HC-SR04) 📏`
 The primary challenge in this category is navigating corners and avoiding collisions with walls. To address this, we employed the HSR04 ultrasonic sensor, which operates by emitting ultrasonic pulses and measuring the time it takes for the echoes to return after bouncing off an object. This time delay is then converted into a distance measurement, allowing the sensor to detect objects and measure distances with precision accurately. 
+
 <br>
+
 Our autonomous vehicle uses 3 ultrasonic sensors in the front part. We have a middle sensor that is always facing forward (parallel to any wall when driving straight), the other two are positioned perpendicular to the first, one on the left side and the other to the right. These two “side” ultrasonic sensors are what help us know at any moment if we're driving too close to a wall or if a turn is near. To keep our driving as straight as possible, we added two extra ultrasonics, each one collinear to a side sensor. For a better understanding of how each sensor is positioned, please visit our _**Vehicle Images**_ section.
+
 <br>
+
 The HSR04 sensor typically has a range of 2 centimeters to 4 meters and is favored for its ease of integration with microcontrollers like Arduino due to its simplicity and cost-effectiveness. Its compact design and straightforward interface make it ideal for applications involving obstacle detection, proximity sensing, and distance measurement in various DIY and industrial projects. To process and interpret this signal given in centimeters, we use the following code:
+
+<br>
 
 
 ```ruby
@@ -147,10 +157,15 @@ long DisCalc(int TP, int EP) {
 
 ### `Gyro + Accelerometer (MPU-6050) 📐`
 TIn both the open and the obstacle avoidance challenge, the vehicle must automatically stop after completing three full rounds. To accomplish this, we decided to use a combination of an accelerometer and a gyroscope. The accelerometer tracks the vehicle’s movement and angle, helping confirm its motion along the course, while the gyroscope measures precise angular changes, allowing us to identify each turn with accuracy.
+
 <br>
+
 Using the gyroscope, each directional change of the vehicle is logged based on its orientation. Specifically, a 90° change corresponds to a left turn, while a -90° change corresponds to a right turn. This setup allows us to monitor every turn the vehicle makes throughout its path. By counting these 90° increments, we can accurately detect each completed round, ensuring reliable tracking over multiple rounds. Once the vehicle has completed three rounds, this data is used to signal an automatic stop.
+
 <br>
+
 To achieve this, the following code uses the MPU6050.h library to read data from the MPU6050 gyroscope and accelerometer. It tracks changes in the yaw angle, incrementing by 90° with each turn. By monitoring these increments, the program counts full rotations and stops the vehicle after it reaches the target round count:
+
 <br>
 
 ```ruby
@@ -223,8 +238,10 @@ The most crucial mechanism of any vehicle is its drive system, and we aimed to r
 
 > [!NOTE]
 >If you want to learn how a differential works you can watch [this](https://www.youtube.com/watch?v=K4JhruinbWc) video, basically a differential gear allows wheels on the same axle to rotate at different speeds. It works by using a set of gears to distribute torque between the wheels, enabling them to turn at different rates, which is essential for smooth cornering. If 𝑇 is the total torque supplied by the engine to the differential, and it is divided between the two wheels, then the torque 𝑇<sub>1</sub> on one wheel and 𝑇<sub>2</sub> on the other wheel satisfy 𝑇 = 𝑇<sub>1</sub> + 𝑇<sub>2</sub>.
+
 <br>
-The motor used in this mechanism is a Faulhaber MOT-165. We opted for this motor because it usually operates at voltages ranging from 6V to 12V, the speed of the motor varies with voltage and load conditions, but it is designed to achieve high RPM (revolutions per minute), and it provides a modest amount of torque, suitable for small, precise applications. It is important to mention that the motor and its driver, the L298N dual H-Bridge, have their power supply, **a Li-Po battery of 1000 mAh and 7.4V**.
+
+The motor used in this mechanism is a Faulhaber MOT-165. We opted for this motor because it usually operates at voltages ranging from 6V to 12V, the speed of the motor varies with voltage and load conditions, but it is designed to achieve high RPM (revolutions per minute), and it provides a modest amount of torque, suitable for small, precise applications. It is important to mention that the motor and its driver, the L298N dual H-Bridge, have their power supply, a _**Li-Po battery of 1000 mAh and 7.4V**_.
 <br>
 
 <br>

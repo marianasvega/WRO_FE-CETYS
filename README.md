@@ -95,6 +95,7 @@ During the Mexican National Competition, we observed that our vehicle needed a b
 
 <br>
 
+**IMAGEN ACKERMAN PAGINA 21**
 Figure 9: Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)
 <br>
 
@@ -111,6 +112,8 @@ When a driver turns the steering wheel, the motion is passed through the steerin
 
 On the other hand, the HS-322HD is a popular heavy-duty servo known for its durability and performance, and without it, our vehicle would have no direction. It features Hitec's Karbonite gear train, which is significantly stronger than standard nylon gears, making it suitable for various applications. With a good balance of speed and torque, the HS-322HD is often used in RC airplanes, helicopters, and other models. To use the servo in the code, it is necessary to include the "Servo.h" library. After that, all that it takes to change the servo´s angle is the following command. 
 
+**IMAGEN SERVO PAGINA 21**
+
 ```ruby
 servo.write(45);
 ```
@@ -124,6 +127,7 @@ The primary challenge in this category is navigating corners and avoiding collis
 
 Our autonomous vehicle uses 3 ultrasonic sensors in the front part. We have a middle sensor that is always facing forward (parallel to any wall when driving straight), the other two are positioned perpendicular to the first, one on the left side and the other to the right. These two “side” ultrasonic sensors are what help us know at any moment if we're driving too close to a wall or if a turn is near. To keep our driving as straight as possible, we added two extra ultrasonics, each one collinear to a side sensor. For a better understanding of how each sensor is positioned, please visit our _**Vehicle Images**_ section.
 
+**IMAGEN ULTRASONIC PAGINA 22**
 <br>
 
 The HSR04 sensor typically has a range of 2 centimeters to 4 meters and is favored for its ease of integration with microcontrollers like Arduino due to its simplicity and cost-effectiveness. Its compact design and straightforward interface make it ideal for applications involving obstacle detection, proximity sensing, and distance measurement in various DIY and industrial projects. To process and interpret this signal given in centimeters, we use the following code:
@@ -157,6 +161,8 @@ long DisCalc(int TP, int EP) {
 
 ### `Gyro + Accelerometer (MPU-6050) 📐`
 TIn both the open and the obstacle avoidance challenge, the vehicle must automatically stop after completing three full rounds. To accomplish this, we decided to use a combination of an accelerometer and a gyroscope. The accelerometer tracks the vehicle’s movement and angle, helping confirm its motion along the course, while the gyroscope measures precise angular changes, allowing us to identify each turn with accuracy.
+
+**IMAGEN GYRO PAGINA 23**
 
 <br>
 

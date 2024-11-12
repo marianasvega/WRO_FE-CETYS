@@ -94,7 +94,6 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 During the Mexican National Competition, we observed that our vehicle needed a better steering system that could round corners with much more facility and precision. After much research, we learned about a mechanism named the Ackerman Steering Principle. When a vehicle turns, the inner wheel follows a tighter path than the outer wheel. To ensure smooth turning without excessive tire wear or slipping, the inner wheel needs to turn at a sharper angle than the outer wheel. This is precisely what the Ackermann geometry achieves.
 
 <br>
-![Screenshot 2024-11-06 183028](https://github.com/user-attachments/assets/8ef272bf-3240-444e-80de-13f5da3d773b)
 
 Figure 9: Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)
 <br>
@@ -115,7 +114,12 @@ servo.write(45);
 <br>
 
 ### `Ultrasonic Sensors (HC-SR04) 📏`
-The primary challenge in this category is navigating corners and avoiding collisions with walls. To address this, we employed the HSR04 ultrasonic sensor, which operates by emitting ultrasonic pulses and measuring the time it takes for the echoes to return after bouncing off an object. This time delay is then converted into a distance measurement, allowing the sensor to accurately detect objects and measure distances with precision. The HSR04 sensor typically has a range of 2 centimeters to 4 meters and is favored for its ease of integration with microcontrollers like Arduino due to its simplicity and cost-effectiveness. Its compact design and straightforward interface make it ideal for applications involving obstacle detection, proximity sensing, and distance measurement in various DIY and industrial projects. To process and interpret this signal given in centimeters, we use the following code:
+The primary challenge in this category is navigating corners and avoiding collisions with walls. To address this, we employed the HSR04 ultrasonic sensor, which operates by emitting ultrasonic pulses and measuring the time it takes for the echoes to return after bouncing off an object. This time delay is then converted into a distance measurement, allowing the sensor to detect objects and measure distances with precision accurately. 
+<br>
+Our autonomous vehicle uses 3 ultrasonic sensors in the front part. We have a middle sensor that is always facing forward (parallel to any wall when driving straight), the other two are positioned perpendicular to the first, one on the left side and the other to the right. These two “side” ultrasonic sensors are what help us know at any moment if we're driving too close to a wall or if a turn is near. To keep our driving as straight as possible, we added two extra ultrasonics, each one collinear to a side sensor. For a better understanding of how each sensor is positioned, please visit our _**Vehicle Images**_ section.
+<br>
+The HSR04 sensor typically has a range of 2 centimeters to 4 meters and is favored for its ease of integration with microcontrollers like Arduino due to its simplicity and cost-effectiveness. Its compact design and straightforward interface make it ideal for applications involving obstacle detection, proximity sensing, and distance measurement in various DIY and industrial projects. To process and interpret this signal given in centimeters, we use the following code:
+
 
 ```ruby
 long DisCalc(int TP, int EP) {
@@ -138,6 +142,69 @@ long DisCalc(int TP, int EP) {
 
 > [!NOTE]
 >The "distance" variable represents the distance from the sensor to the wall. It’s computed by multiplying the duration of the echo by the speed of sound (0.034 cm/µs) and dividing by 2 to account for the round trip of the sound wave. This distance helps in determining when to navigate around obstacles.
+<br>
+<br>
+
+### `Gyro + Accelerometer (MPU-6050) 📐`
+TIn both the open and the obstacle avoidance challenge, the vehicle must automatically stop after completing three full rounds. To accomplish this, we decided to use a combination of an accelerometer and a gyroscope. The accelerometer tracks the vehicle’s movement and angle, helping confirm its motion along the course, while the gyroscope measures precise angular changes, allowing us to identify each turn with accuracy.
+<br>
+Using the gyroscope, each directional change of the vehicle is logged based on its orientation. Specifically, a 90° change corresponds to a left turn, while a -90° change corresponds to a right turn. This setup allows us to monitor every turn the vehicle makes throughout its path. By counting these 90° increments, we can accurately detect each completed round, ensuring reliable tracking over multiple rounds. Once the vehicle has completed three rounds, this data is used to signal an automatic stop.
+<br>
+To achieve this, the following code uses the MPU6050.h library to read data from the MPU6050 gyroscope and accelerometer. It tracks changes in the yaw angle, incrementing by 90° with each turn. By monitoring these increments, the program counts full rotations and stops the vehicle after it reaches the target round count:
+<br>
+
+```ruby
+MPU6050 mpu;                 // INITIALIZE MPU 6050 //
+
+float ANG = 0;               // VARIABLE TO STORE YAW ANGLE //
+unsigned long lastTime = 0;  // STORE THE LAST TIME TIME readYawAngle WAS CALLED //
+
+void setup() {
+  Serial.begin(115200);
+  
+  Wire.begin(21, 22);        // INITIALIZE I2C - SDA, SCL FOR ESP32 //
+
+  // INITIALIZE MPU6050 ACCELEROMETER/GYRO // 
+  if (!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G)) {
+    Serial.println("Could not find MPU6050");
+    while (1);
+  }
+  Serial.println("MPU6050 initialized");
+  
+  mpu.calibrateGyro();       // SET ZERO REFERENCE FOR YAW //
+
+  lastTime = millis();       // INITIALIZE lastTime //
+}
+
+void loop() {
+  ANG = readYawAngle();      // GET THE CURRENT YAW ANGLE //
+  Serial.print("Yaw Angle: ");
+  Serial.println(ANG);
+
+  // CHECK IF A 90-DEGREE TURN HAS BEEN MADE //
+  if (ANG >= 90.0 || ANG <= -90.0) {
+    Serial.println("90-degree turn detected!");
+    ANG = 0;                 // RESET YAW ANGLE //
+}
+delay(10);
+}
+
+float readYawAngle() {
+  Vector rawGyro = mpu.readRawGyro();
+  float YR = rawGyro.ZAxis/130.0;       // CORRECT SENSITIVITY FOR 2000DPS RANGE //
+  
+  unsigned long currentTime = millis(); // CALCULATE TIME DIFFERENCE IN SECONDS //
+  float dt = (currentTime - lastTime)/1000.0; // CONVERT TO SECONDS //
+  lastTime = currentTime;                     // UPDATE lastTime FOR NEXT CALL //  
+  
+  float driftRate = .02 / 3.0;   // DRIFT RATE OF 1 DEGREE EVERY 3 SECONDS //
+  // INTEGRATE YAW RATE OVER TIME TO GET YAW ANGLE //
+  ANG += YR * dt;
+  ANG -= driftRate * dt;         // Subtract the estimated drift
+
+  return ANG;
+}
+```
 <br>
 <br>
 

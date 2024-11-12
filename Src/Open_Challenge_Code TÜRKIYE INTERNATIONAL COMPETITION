@@ -1,0 +1,422 @@
+#include <Wire.h>
+#include <ESP32Servo.h>
+#include <MPU6050.h>
+
+Servo servo;
+MPU6050 mpu;
+
+
+float ANG = 0;                                                // VARIABLE TO STORE YAW ANGLE //
+unsigned long lastTime = 0;                                   // TO STORE THE LAST TIME readYawAngle WAS CALLED //
+int Lap = 0;
+float driftRate;
+int x = 0;
+
+int cont = 0;                                                 // DECLARE BUTTON PINS TO ESP32 //
+const char butt = 13;
+bool start = false;  
+
+const int Trig_US = 14;                                       // DECLARE ULTRASONIC PINS TO ESP32 //
+const int Echo_US1 = 4;
+const int Echo_US2 = 16;
+const int Echo_US3 = 17;
+const int Echo_USAux1 = 33;
+const int Echo_USAux2 = 25;
+
+long DisL;                                                    // VARIABLES TO STORE ULTRASONIC DATA //
+long DisR;
+long DisM;
+long DisLA;
+long DisRA;
+
+int IN1 = 2;                                                  // DECLARE MOTOR PINS TO ESP32//
+int IN2 = 27;
+int ENA = 32; 
+
+void setup() {
+  
+  Serial.begin(115200);
+  Wire.begin(21, 22);                                         // SDA, SCL FOR ESP32 //
+  
+  servo.attach(26);
+  servo.write(94);
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENA, OUTPUT); 
+
+  pinMode(Trig_US, OUTPUT);
+
+  pinMode(Echo_US1, INPUT);
+  pinMode(Echo_US2, INPUT);
+  pinMode(Echo_US3, INPUT);
+  pinMode(Echo_USAux1, INPUT);
+  pinMode(Echo_USAux2, INPUT);
+
+  pinMode(butt,INPUT_PULLUP);
+
+  ledcAttachChannel(ENA, 5000, 8, 2);
+
+  if (!mpu.begin(MPU6050_SCALE_2000DPS, MPU6050_RANGE_2G)) {
+    Serial.println("Could not find MPU6050");
+    while (1);
+  }
+  
+  mpu.calibrateGyro();                                        // OPTIONAL: CALIBRATE MPU6050 OR SET ZERO REFERENCE FOR YAW //
+
+  lastTime = millis();
+
+}
+
+void loop() {
+
+  if (digitalRead(butt) == HIGH && cont == 0) {              // START //
+  start = true; 
+  cont = 1;
+  delay(500); 
+  }
+
+  if (digitalRead(butt) == HIGH && cont == 1) {              // STOP //
+  start = false;        
+  cont = 0;
+  delay(500); 
+  }
+
+  if (start == true){
+
+    OPEN();
+
+  }
+  else {
+
+    STOP();
+
+  }
+
+}
+
+int DisCalc(int TP, int EP) {                               // ULTRASONIC BASIC CODE //
+  long duration = -1; 
+  int reading = 120;                                        // DEFAULT TO MAXIMUM READING (OR NO READING) //
+  int cont = 0;
+
+  while (cont < 5) {                                        // ATTEMPT 5 TIMES //
+    digitalWrite(TP, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TP, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TP, LOW);
+
+    duration = pulseIn(EP, HIGH, 10000); 
+
+    if (duration > 0) {
+      reading = duration * 0.034 / 2;  
+      break;                                                // EXIT LOOP IF VALID DISTANCE IS OBTAINED //
+    }
+
+    cont++;                                                 // INCREMENT COUNTER AFTER EACH ATTEMPT //
+  }
+
+  return reading;
+}
+
+void printDistances(long distanceLeft, long distanceHleft, long distanceMid, long distanceHright, long distanceRight) {
+  Serial.print("Dis Left: ");
+  Serial.print(distanceLeft);
+  Serial.print(" Dis MidLeft: ");
+  Serial.print(distanceHleft);
+  Serial.print(" Dis Mid: ");
+  Serial.print(distanceMid);
+  Serial.print(" Dis MidRight: ");
+  Serial.print(distanceHright);
+  Serial.print(" Dis Right: ");
+  Serial.println(distanceRight);
+}
+
+void printDistancesM(long distanceMid) {
+  Serial.print(" Dis Mid: ");
+  Serial.println(distanceMid);
+
+}
+
+
+float readYawAngle(int X) {
+  Vector rawGyro = mpu.readRawGyro();
+  
+  float YR = rawGyro.ZAxis / 131.0;  
+  
+  if (X == 0){
+    unsigned long currentTime = millis();
+    float dt = (currentTime - lastTime) / 1000.0; 
+    lastTime = currentTime; 
+  
+    ANG += YR * dt;
+    ANG -=   .02;  
+  }
+
+  else if (X == 1){
+    unsigned long currentTime = millis();
+    float dt = (currentTime - lastTime) / 1000.0; 
+    lastTime = currentTime; 
+
+    ANG += YR * dt;
+    ANG -=   .001;  
+  }
+
+  else if (X == 2){
+    unsigned long currentTime = millis();
+    float dt = (currentTime - lastTime) / 1000.0; 
+    lastTime = currentTime; 
+    
+    ANG += YR * dt;
+    ANG -=   .034;  
+  }
+  
+  return ANG;
+}
+
+void STRAIGHT() {
+  servo.write(93);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 200);  
+  delay(10);
+}
+
+void STRAIGHT_SLOW() {
+  servo.write(94);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 70);  
+  delay(10);
+}
+
+void RIGHT() {
+  servo.write(63);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 150);  
+  delay(10);
+}
+
+void SLIGHTLY_RIGHT() {
+  servo.write(79);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 180);  
+  delay(10);
+}
+
+void SLIGHTLY_RIGHT_MID(){                                    // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+  servo.write(84);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);            
+ ledcWrite(ENA, 200);  
+  delay(10);                
+
+} 
+
+void SLIGHTLY_RIGHT_MIN(){                                    // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
+  servo.write(86);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);         
+  ledcWrite(ENA, 200);     
+  delay(10);                  
+
+} 
+
+void REVERSE_RIGHT() {
+  servo.write(119);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  ledcWrite(ENA, 200);  
+  delay(10);
+}
+
+void LEFT() {
+  servo.write(125);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 150);  
+  delay(10);
+}
+
+void SLIGHTLY_LEFT() {
+  servo.write(109);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 180);  
+  delay(10);
+}
+
+void SLIGHTLY_LEFT_MID(){                                     // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+  servo.write(104);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW); 
+ ledcWrite(ENA, 200);  
+  delay(10);
+}
+
+void SLIGHTLY_LEFT_MIN(){                                     // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
+  servo.write(102);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);
+  ledcWrite(ENA, 200);  
+  delay(10);
+}
+
+void REVERSE_LEFT() {
+  servo.write(69);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  ledcWrite(ENA, 200);  
+  delay(10);
+}
+
+void STOP() {
+  servo.write(94);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 0);  
+  delay(10);
+} 
+
+void corregir(int d1, int d2, int d3, int d4) { 
+  if (d1 < d4) {
+    if (d1 < 20) {
+      SLIGHTLY_RIGHT();
+    } 
+    else if (d2 < 20) {
+      SLIGHTLY_RIGHT();
+    }      
+  }
+  else if (d4 < d1) {
+    if (d4 < 20) {
+      SLIGHTLY_LEFT();
+    } 
+    else if (d3 < 20) {
+      SLIGHTLY_LEFT();
+    }  
+  }
+
+}
+
+void corregirA(float ang) { 
+  if (ang > 3){
+    SLIGHTLY_RIGHT_MIN();
+  }
+  else if (ang < -3){
+    SLIGHTLY_LEFT_MIN();
+  }
+
+}
+
+void OPEN() {
+  if (Lap <= 11){
+
+    DisL = DisCalc(Trig_US, Echo_US1);
+    delay(5);
+    DisM = DisCalc(Trig_US, Echo_US2);
+    delay(5);
+    DisR = DisCalc(Trig_US, Echo_US3);
+    delay(5);
+    DisLA = DisCalc(Trig_US, Echo_USAux1);
+    delay(5);
+    DisRA = DisCalc(Trig_US, Echo_USAux2);
+    delay(5);
+
+    printDistances(DisL, DisLA, DisM, DisRA, DisR);
+
+    ANG = readYawAngle(x);
+    Serial.print("Angle: ");
+    Serial.println(ANG);
+
+    STRAIGHT();
+    
+
+    if (DisM < 55 && DisL > 90) {
+      for (;;) {
+        x = 1;
+        ANG = readYawAngle(x);
+        Serial.print("Angle: ");
+        Serial.println(ANG);
+
+    
+        if (ANG >= 90.0 || ANG <= -90.0) {
+          Serial.println("Turn detected!");
+          ANG = 0;  
+          Lap ++;
+          break;
+        }
+
+        DisM = DisCalc(Trig_US, Echo_US2);
+        delay(5);
+        
+        printDistancesM(DisM);
+          
+        if(DisM < 14){ 
+          REVERSE_LEFT();
+          delay(1300);
+          break;
+        }
+                
+
+        LEFT();  // Execute left turn
+              
+      }
+    }
+
+    if (DisM < 56 && DisR > 79 || DisM < 56 && DisRA > 89) {
+      for (;;) {
+
+        x = 2;
+        ANG = readYawAngle(x);
+        Serial.print("Angle: ");
+        Serial.println(ANG);
+
+        if (ANG >= 90.0 || ANG <= -90.0) {
+          Serial.println("Turn detected!");
+          ANG = 0;  // Reset yaw angle
+          Lap ++;
+          break;
+        }
+
+        DisM = DisCalc(Trig_US, Echo_US2);
+        delay(5);
+      
+        printDistancesM(DisM);
+        
+        if(DisM < 14){ 
+          REVERSE_RIGHT();
+          delay(1300);
+          break;
+        }
+              
+
+        RIGHT();  // Execute left turn
+              
+      }
+    }
+
+
+    if (DisR < 20 || DisL < 20 || DisRA < 20 || DisLA < 20) {
+      corregir(DisL, DisLA, DisRA, DisR);
+    }
+
+    else if (ANG > 3 || ANG < -3){
+    corregirA(ANG);
+    }
+
+  }
+
+  else {
+    servo.write(94);
+    delay(100);
+    STRAIGHT();
+    delay(1600);
+    for(;;){
+      STOP();
+    }
+  }
+
+}

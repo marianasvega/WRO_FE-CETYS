@@ -2,7 +2,7 @@
 
 # CETYS FUTURE ENGINEERS 2024 🤖
 
-This is the official repository for the CETYS Team that participated in the Future Engineers category at the 2024 Mexican National and is soon to compete in the International Final in Izmir, Türkiye!. Here we will upload all of the process, improvements, and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
+This is the official repository for the CETYS Team that participated in the Future Engineers category at the 2024 Mexican National and will soon compete in the International Final in Izmir, Türkiye! Here we will upload all of the processes, improvements, and results regarding our autonomous vehicle, as well as a full report on the code used and its electrical components.
   
 **Team Members:** Mariana Sofia Vega Contreras, Claudio Iván López Valle & Mariana Flores Martínez.
 
@@ -67,7 +67,7 @@ This is the official repository for the CETYS Team that participated in the Futu
 
 ### `Robot´s Vision (Pixy 2 Camera) 📷`
 
-In order for our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera, a versatile vision sensor designed for robotics and automation projects. It offers powerful image recognition capabilities and is user-friendly for integrating visual processing into various applications. After you complete the settings on the camera´s app, you are all set to start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntax of the commands correspond to the Pixy2 Arduino library):
+In order for our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera, a versatile vision sensor designed for robotics and automation projects. It offers powerful image recognition capabilities and is user-friendly for integrating visual processing into various applications. After you complete the settings on the camera´s app, you can start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntax of the commands correspond to the Pixy2 Arduino library):
   
   ```ruby
 pixy.ccc.getBlocks();
@@ -93,11 +93,21 @@ else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN
 
 During the Mexican National Competition, we observed that our vehicle needed a better steering system that could round corners with much more facility and precision. After much research, we learned about a mechanism named the Ackerman Steering Principle. When a vehicle turns, the inner wheel follows a tighter path than the outer wheel. To ensure smooth turning without excessive tire wear or slipping, the inner wheel needs to turn at a sharper angle than the outer wheel. This is precisely what the Ackermann geometry achieves.
 
-<br>
+<be>
+
+<div style="display: flex; align-items: center;">
+    <img src="https://github.com/user-attachments/assets/e0d1e6af-4d0f-4fda-b4cd-e1481a7a86f7" alt="Four-Wheel Steering Design" style="width: 35%; margin-right: 15px;">
+    <p>
+        <strong>Figure 1:</strong> Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)
+        <br><br>
+        When a driver turns the steering wheel, the motion is passed through the steering column to the steering gear. This gear changes the rotation into a pushing or pulling movement, which is sent to the tie rods. The tie rods then adjust the steering arms connected to the wheels. This setup ensures that the inside wheel turns at a sharper angle than the outside wheel, helping the vehicle turn more smoothly and efficiently while reducing tire wear and slip.
+    </p>
+</div>
+
+
 
 <img width="421" alt="Screenshot 2024-11-15 at 8 21 14 p m" src="https://github.com/user-attachments/assets/e0d1e6af-4d0f-4fda-b4cd-e1481a7a86f7">
-**IMAGEN ACKERMAN PAGINA 21**
-Figure 9: Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)
+Figure 1: Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)
 <br>
 
 When a driver turns the steering wheel, the motion is passed through the steering column to the steering gear. This gear changes the rotation into a pushing or pulling movement, which is sent to the tie rods. The tie rods then adjust the steering arms connected to the wheels. This setup ensures that the inside wheel turns at a sharper angle than the outside wheel, helping the vehicle turn more smoothly and efficiently while reducing tire wear and slip.

@@ -65,27 +65,12 @@ This is the official repository for the CETYS Team that participated in the Futu
 # Mechanism explanation
 
 
-### `Robot´s Vision (Pixy 2 Camera) 📷`
+### `Robot´s Vision (HuskyLens Camera) 📷`
 
-In order for our vehicle to detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to use the Pixy2 Camera, a versatile vision sensor designed for robotics and automation projects. It offers powerful image recognition capabilities and is user-friendly for integrating visual processing into various applications. After you complete the settings on the camera´s app, you can start programming what you want your vehicle to do when detecting each signature. For example, we used the following code (the syntax of the commands correspond to the Pixy2 Arduino library):
-  
-  ```ruby
-pixy.ccc.getBlocks();
+textooooo
+textooooo
+textooooo
 
-if (pixy.ccc.blocks[i].m_signature == 1) {            // 1 EQUALS RED BLOCK IN OUR CAMERA CONFIGURATION //
-  Serial.println("Red object detected");
-  followBlock_red(i, "Red");
-}
-
-else if (pixy.ccc.blocks[i].m_signature == 2) {       // 2 EQUALS GREEN BLOCK IN OUT CAMERA CONFIGURATION //
-  Serial.println("Green object detected");
-  followBlock_green(i, "Green");
-}  
-  ```
-<br>
-
-> [!NOTE]
-> In this code, when the camera detects our signature number 1 (red) it activates our module "followBlock_red" which makes the robot swerve right, according to the manual rules. When it detects signature number 2 (green), it swerves left.
 <br>
 <br>
   

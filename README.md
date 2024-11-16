@@ -95,6 +95,7 @@ During the Mexican National Competition, we observed that our vehicle needed a b
 
 <br>
 
+<img width="421" alt="Screenshot 2024-11-15 at 8 21 14 p m" src="https://github.com/user-attachments/assets/e0d1e6af-4d0f-4fda-b4cd-e1481a7a86f7">
 **IMAGEN ACKERMAN PAGINA 21**
 Figure 9: Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)
 <br>

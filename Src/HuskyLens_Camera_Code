@@ -1,0 +1,41 @@
+#include "HUSKYLENS.h"
+
+HUSKYLENS huskylens;
+
+int ID0 = 0;                                                        // VARIABLES TO DETERMINE HOW MANY COLORS HAVE BEEN IDENTIFIED //
+int ID1 = 1; 
+int ID2 = 2; 
+
+void printResult(HUSKYLENSResult result);
+
+void setup() {
+  Serial.begin(115200);  
+  Wire.begin(21, 22);          
+
+  huskylens.writeAlgorithm(ALGORITHM_COLOR_RECOGNITION);            // SET HUSKYLENS TO COLOR RECOGNITION MODE //
+}
+
+void loop() {
+  if (huskylens.request()) {                                        // REQUEST DETECTED OBJECTS FROM CAMERA //
+    for (int i = 0; i < huskylens.countBlocks(); i++) {
+      HUSKYLENSResult result = huskylens.getBlock(i);               // CHECK IF THE DETECTED COLOR IS RED OR GREEN //
+      if (result.ID == 1) {                                         // GREEN COLOR (BASED ON OUR PROGRAMMING) //
+        Serial.println("Detected Green Object!");
+        Serial.println("X Position: " + String(result.xCenter));
+      }
+      else if (result.ID == 2) {                                    // RED COLOR (BASED ON OUR PROGRAMMING) //
+        Serial.println("Detected Red Object!");
+        Serial.println("X Position: " + String(result.xCenter));
+      }
+    }
+  } 
+}
+
+void printResult(HUSKYLENSResult result) {
+    if (result.command == COMMAND_RETURN_BLOCK) {                   // RESULT IS A BLOCK //
+        Serial.println(String() + F("Block: xCenter=") + result.xCenter + F(", yCenter=") + result.yCenter + F(", width=") + result.width + F(", height=") + result.height + F(", ID=") + result.ID);
+    }    
+    else {                                                          // RESULT IS UNKNOWN //
+        Serial.println("Object unknown!");
+    }
+}

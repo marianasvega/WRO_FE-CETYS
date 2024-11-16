@@ -30,7 +30,7 @@ This is the official repository for the CETYS Team that participated in the Futu
 
 <div style="display: flex; align-items: flex-start;">
   <img align="left" width="190" src="https://github.com/user-attachments/assets/5f3e63f8-bbd5-40c3-ac24-5c255352a6ce" alt="ARTURO" style="margin-right: 20px;"/>
-  <p><be>This report outlines the design, development, and performance of Arturo, the autonomous vehicle developed by our team, the CETYS Future Engineers, for the 2024 World Robot Olympiad. In this document, we will provide a comprehensive overview of our previous work in the Mexican national competition, where we successfully showcased our prototype and the iterative improvements we made in preparation for the international championship in Türkiye.
+  <p><be>This report outlines the design, development, and performance of Arturo, the autonomous vehicle developed by our team, the CETYS Future Engineers, for the 2024 World Robot Olympiad. This document will provide a comprehensive overview of our previous work in the Mexican national competition, where we successfully showcased our prototype and the iterative improvements we made in preparation for the international championship in Türkiye.
 </p>
 </div>
 <br>

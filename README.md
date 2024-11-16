@@ -95,14 +95,15 @@ During the Mexican National Competition, we observed that our vehicle needed a b
 
 <be>
 
-<div style="display: flex; align-items: center;">
-    <img src="https://github.com/user-attachments/assets/e0d1e6af-4d0f-4fda-b4cd-e1481a7a86f7" alt="Four-Wheel Steering Design" style="width: 35%; margin-right: 15px;">
+<div style="display: flex; align-items: flex-start;">
+    <img src="https://github.com/user-attachments/assets/e0d1e6af-4d0f-4fda-b4cd-e1481a7a86f7" alt="Four-Wheel Steering Design" style="width: 25%; margin-right: 15px;">
     <p>
-        <strong>Figure 1:</strong> Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)
+        <strong>Figure 1:</strong> Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020)  
         <br><br>
         When a driver turns the steering wheel, the motion is passed through the steering column to the steering gear. This gear changes the rotation into a pushing or pulling movement, which is sent to the tie rods. The tie rods then adjust the steering arms connected to the wheels. This setup ensures that the inside wheel turns at a sharper angle than the outside wheel, helping the vehicle turn more smoothly and efficiently while reducing tire wear and slip.
     </p>
 </div>
+
 
 
 

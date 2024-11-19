@@ -67,9 +67,33 @@ This is the official repository for the CETYS Team that participated in the Futu
 
 ### `Robot´s Vision (HuskyLens Camera) 📷`
 
-textooooo
-textooooo
-textooooo
+<div style="display: flex; align-items: flex-start;">
+  <img align="left" width="200" src="https://github.com/user-attachments/assets/72711018-55cd-4ef5-8e49-a40d3d569d39" alt="HuskyLens Camera" style="margin-right: 20px;">
+  <p>
+    For our vehicle to better detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to upgrade from the Pixy2 Camera to the HuskyLens Camera. This decision was made after much research and due to a compatibility problem we had while trying to program the Pixy2 with the ESP32. HuskyLens is an AI-powered vision sensor designed for a wide range of applications, including robotics, DIY electronics, and IoT projects such as this. This compact camera module integrates machine learning algorithms to perform tasks like face detection, object tracking, color identification, and gesture recognition, enabling intuitive interaction and intelligent automation. For this component, we used the following code (the syntax of the commands corresponds to the HuskyLens Arduino library):
+  </p>
+</div>
+
+
+```ruby
+if (huskylens.request()) {                                        // REQUEST DETECTED OBJECTS FROM CAMERA //
+    for (int i = 0; i < huskylens.countBlocks(); i++) {
+      HUSKYLENSResult result = huskylens.getBlock(i);             // CHECK IF THE DETECTED COLOR IS RED OR GREEN //
+      if (result.ID == 1) {                                       // GREEN COLOR (BASED ON OUR PROGRAMMING) //
+        Serial.println("Detected Green Object!");
+        Serial.println("X Position: " + String(result.xCenter));
+      }
+      else if (result.ID == 2) {                                  // RED COLOR (BASED ON OUR PROGRAMMING) //
+        Serial.println("Detected Red Object!");
+        Serial.println("X Position: " + String(result.xCenter));
+     }
+   }
+ }
+```
+
+<br>
+  
+One of the main benefits of HuskyLens is its ability to bring sophisticated AI and machine learning capabilities to users without requiring deep technical expertise. It can also perform real-time tasks without an internet connection, leading to faster response times and reduced latency. Finally, it is compatible with various microcontrollers and development platforms, such as Arduino, ESP32, and Raspberry Pi, and supports multiple communication protocols, including UART and I2C.
 
 <br>
 <br>
@@ -107,7 +131,7 @@ During the Mexican National Competition, we observed that our vehicle needed a b
 servo.write(45);
 ```
 <br>
-<be>
+<br>
 
 
 ### `Ultrasonic Sensors (HC-SR04) 📏`

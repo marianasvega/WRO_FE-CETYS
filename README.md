@@ -70,7 +70,7 @@ This is the official repository for the CETYS Team that participated in the Futu
 <div style="display: flex; align-items: flex-start;">
   <img align="left" width="200" src="https://github.com/user-attachments/assets/72711018-55cd-4ef5-8e49-a40d3d569d39" alt="HuskyLens Camera" style="margin-right: 20px;">
   <p>
-    For our vehicle to better detect the obstacles on the rink (red and green traffic lights and the parking walls), we decided to upgrade from the Pixy2 Camera to the HuskyLens Camera. This decision was made after much research and due to a compatibility problem we had while trying to program the Pixy2 with the ESP32. HuskyLens is an AI-powered vision sensor designed for a wide range of applications, including robotics, DIY electronics, and IoT projects such as this. This compact camera module integrates machine learning algorithms to perform tasks like face detection, object tracking, color identification, and gesture recognition, enabling intuitive interaction and intelligent automation. For this component, we used the following code (the syntax of the commands corresponds to the HuskyLens Arduino library):
+    For our vehicle to better detect the obstacles on the rink, we decided to upgrade from the Pixy2 Camera to the HuskyLens Camera. This decision was made after much research and due to a compatibility problem we had while trying to program the Pixy2 with the ESP32. HuskyLens is an AI-powered vision sensor designed for a wide range of applications, including robotics, DIY electronics, and IoT projects such as this. This compact camera module integrates machine learning algorithms to perform tasks like face detection, object tracking, color identification, and gesture recognition, enabling intuitive interaction and intelligent automation. For this component, we used the following code (the syntax of the commands corresponds to the HuskyLens Arduino library):
   </p>
 </div>
 
@@ -108,7 +108,7 @@ During the Mexican National Competition, we observed that our vehicle needed a b
   <img align="left" width="250" src="https://github.com/user-attachments/assets/e0d1e6af-4d0f-4fda-b4cd-e1481a7a86f7" alt="Four-Wheel Steering Design" style="margin-right: 20px;">
   <p>
     <strong>Figure 1:</strong> Design and Development of Four-Wheel Steering for All Terrain Vehicle (Vishnu 2020):  
-    When a driver turns the steering wheel, the motion is passed through the steering column to the steering gear. This gear changes the rotation into a pushing or pulling movement, which is sent to the tie rods. The tie rods then adjust the steering arms connected to the wheels. This setup ensures that the inside wheel turns at a sharper angle than the outside wheel, helping the vehicle turn more smoothly and efficiently while reducing tire wear and slip.
+    When a driver turns the steering wheel, the motion is passed through the steering column to the steering gear. This gear changes the rotation into a pushing or pulling movement, which is sent to the tie rods. The tie rods then adjust the steering arms connected to the wheels. This setup ensures that the inside wheel turns at a sharper angle than the outside wheel, helping the vehicle turn more efficiently while reducing tire wear and slip.
   </p>
 </div>
 

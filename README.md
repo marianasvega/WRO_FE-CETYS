@@ -112,6 +112,8 @@ During the Mexican National Competition, we observed that our vehicle needed a b
   </p>
 </div>
 
+<br>
+
 > [!NOTE]
 >For the STL files to print the Ackerman system we used, visit the following link for it is NOT of our property and we give full credits to the owner: [https://github.com/KarenWon9/WRO-FI-Team-Spark](url)
 

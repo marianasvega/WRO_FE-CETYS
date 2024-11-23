@@ -50,7 +50,7 @@ This is the official repository for the CETYS Team that participated in the Futu
 | **Faulhaber-type DC Motor**         |       1       |
 | **H-bridge Motor Driver L298N**     |       1       |
 | **Pushbutton**                      |       1       |
-| **9V Battery**                      |       1       |
+| **11.1V Battery**                   |       1       |
 | **7.4V Battery**                    |       1       |
 | **330Ω Resistor**                   |       1       |
 | **HuskyLens Camera**                |       1       |

@@ -53,7 +53,6 @@ This is the official repository for the CETYS Team that participated in the Futu
 | **9V Battery**                      |       1       |
 | **7.4V Battery**                    |       1       |
 | **330Ω Resistor**                   |       1       |
-| **Capacitor**                       |       1       |
 | **HuskyLens Camera**                |       1       |
 | **Switch Button Interruptor KCD1**  |       2       |
 | **Gyro + Accelerometer MPU-6050**   |       1       |

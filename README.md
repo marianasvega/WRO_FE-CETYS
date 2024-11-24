@@ -6,7 +6,7 @@ This is the official repository for the CETYS Team that participated in the Futu
   
 **Team Members:** Mariana Sofia Vega Contreras, Claudio Iván López Valle & Mariana Flores Martínez.
 
-![CETYS (1920 x 500 px)](https://github.com/user-attachments/assets/a858a081-411f-4ef9-bae7-2771a890f4c4)
+![CETYS 1 (1920 x 800 px) (1920 x 500 px)](https://github.com/user-attachments/assets/6b0945dc-7d87-4a3c-aaad-2c5ca894778a)
 
 <br>
 

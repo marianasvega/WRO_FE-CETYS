@@ -19,7 +19,7 @@ float driftRate;
 int x = 0;
 
 int cont = 0;                                                                // BUTTON PINS //
-const char butt = 13;
+const char button = 13;
 bool start = false;  
 
 int ID0 = 0;                                                                 // CAMERA ID VARIABLES //
@@ -68,7 +68,7 @@ void setup() {
   pinMode(Echo_USAux1, INPUT);
   pinMode(Echo_USAux2, INPUT);
 
-  pinMode(butt,INPUT_PULLUP);
+  pinMode(button,INPUT_PULLUP);
 
   ledcAttachChannel(ENA, 5000, 8, 2);
 
@@ -86,13 +86,13 @@ void setup() {
 
 void loop() {
 
-  if (digitalRead(butt) == HIGH && cont == 0) {                              // START //
+  if (digitalRead(button) == HIGH && cont == 0) {                              // START //
     start = true; 
     cont = 1;
     delay(500); 
   }
 
-  if (digitalRead(butt) == HIGH && cont == 1) {                              // STOP //
+  if (digitalRead(button) == HIGH && cont == 1) {                              // STOP //
     start = false;        
     cont = 0;
     delay(500); 

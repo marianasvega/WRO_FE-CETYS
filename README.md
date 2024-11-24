@@ -289,271 +289,353 @@ The motor used in this mechanism is a Faulhaber MOT-165. We opted for this motor
 We will now discuss how all of the previously mentioned mechanisms assemble together in our final code (Open and Obstacle Challenge). Before we start, we will show all of the functions used along the code to use as reference for when they appear next.
 
 ```ruby
-void printDistances(long distanceLeft, long distanceMid, long distanceRight) {
+int DisCalc(int TP, int EP) {                                                // ULTRASONIC BASIC CODE //
+
+  long duration = -1;
+  int reading = 120; 
+  int cont = 0;
+
+  while (cont < 5) { 
+    digitalWrite(TP, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TP, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TP, LOW);
+
+    duration = pulseIn(EP, HIGH, 10000); 
+
+    if (duration > 0) {
+      reading = duration * 0.034 / 2; 
+      break;  
+    }
+
+    cont++;  
+  }
+
+  return reading;
+
+}
+
+
+void printDistances(long distanceLeft, long distanceHleft, long distanceMid, long distanceHright, long distanceRight){
+
   Serial.print("Dis Left: ");
   Serial.print(distanceLeft);
-  Serial.print(" ");
-  Serial.print("Dis Mid: ");
+  Serial.print(" Dis MidLeft: ");
+  Serial.print(distanceHleft);
+  Serial.print(" Dis Mid: ");
   Serial.print(distanceMid);
-  Serial.print(" ");
-  Serial.print("Dis Right: ");
+  Serial.print(" Dis MidRight: ");
+  Serial.print(distanceHright);
+  Serial.print(" Dis Right: ");
   Serial.println(distanceRight);
+
 }
 
 
-int DisCalc(int TP, int EP){                                    // CALCULATE DISTANCES //
-  long duration = -1;
-  int reading = 0;
-  int cont = 0;
-  digitalWrite(TP, LOW);
+void printDistancesM(long distanceMid) {
 
-  while ((duration!=0) || (cont <5)){
-    delayMicroseconds(2);
-    digitalWrite(TP, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(TP, LOW);
-    long duration = pulseIn(EP, HIGH,10000);
+  Serial.print(" Dis Mid: ");
+  Serial.println(distanceMid);
 
-    if (duration>0){
-      reading = duration * 0.034/2;
-    }
-    else{
-      reading = 120;
-    }
- 
-    return reading;
-  }
- 
-} 
+}
 
-long DisCalchLong(int TP, int EP) {                            // CALCULATE DISTANCES BY GETTING AN AVERAGE //
-  const int numReadings = 30;
-  long readings[numReadings];  
-  long sum = 0;
 
-  for (int i = 0; i < numReadings; i++) {
-    digitalWrite(TP, LOW);
-    delayMicroseconds(2);
-    digitalWrite(TP, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(TP, LOW);
+float readYawAngle(int X) {                                                  // GYROSCOPE BASIC CODE //
 
-    long duration = pulseIn(EP, HIGH);
-    readings[i] = duration * 0.034 / 2;
-    sum += readings[i]; 
-    delay(5); 
+  Vector rawGyro = mpu.readRawGyro();
+  float YR = rawGyro.ZAxis / 131.0; 
+  
+  if (X == 0){
+    unsigned long currentTime = millis();
+    float dt = (currentTime - lastTime) / 1000.0; 
+    lastTime = currentTime; 
+
+    ANG += YR * dt;
+    ANG -=   .02;  
   }
 
-  long minValue = readings[0];
-  long maxValue = readings[0];
-  for (int i = 1; i < numReadings; i++) {
-    if (readings[i] < minValue) {
-      minValue = readings[i];
-    }
-    if (readings[i] > maxValue) {
-      maxValue = readings[i];
-    }
+  else if (X == 1){
+    unsigned long currentTime = millis();
+    float dt = (currentTime - lastTime) / 1000.0; 
+    lastTime = currentTime; 
+  
+    ANG += YR * dt;
+    ANG +=   0.019;  
   }
 
-  sum -= minValue;
-  sum -= maxValue;
-  long average = sum / (numReadings - 2);
-  return average;
-
-}
-
-void followBlock_green(int blockIndex, const char* color){    // GREEN OBSTACLE DETECTED //
- int x = pixy.ccc.blocks[blockIndex].m_x;
-
-  Serial.print("Following ");
-  Serial.print(color);
-  Serial.print(" block at (");
-  Serial.print(x);
-  Serial.println(")");
-
-  if(x < 158){
-    LEFT();
-  }
-  else if(x > 158){
-    SLIGHTLY_LEFT_MIN();
-    delay(100);
-    STRAIGHT();
-  }
-  delay(10);
-}
-
-void followBlock_red(int blockIndex, const char* color){    // RED OBSTACLE DETECTED //
-  int x = pixy.ccc.blocks[blockIndex].m_x;
-
-  Serial.print("Following ");
-  Serial.print(color);
-  Serial.print(" block at (");
-  Serial.print(x);
-  Serial.println(")");
-
-  if(x > 158){
-    RIGHT(); 
-  }
- else if(x < 158){
-    SLIGHTLY_RIGHT_MIN();
-    delay(100);
-    STRAIGHT();
-  }
-  delay(10);
-} 
-
-
-void STRAIGHT(){                                              // VEHICLE MOVES STRAIGHT FORWARD //
-  servo.write(90);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);
-  analogWrite(ENA,250);                                       // SET SPEED FOR THE MOTOR //
-  delay(10);
-} 
-
-void STRAIGHT_SLOW(){                                         // VEHICLE MOVES STRAIGHT BUT SLOWER //
-  servo.write(90);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);
-  analogWrite(ENA,60);                                        // SET SPEED FOR THE MOTOR //
-  delay(10);
-} 
-
-void RIGHT(){                                                 // VEHICLE SWERVES RIGHT //
-  servo.write(60);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);   
-  analogWrite(ENA,110);                                       // SET SPEED FOR THE MOTOR //
-  delay(10);
-} 
-
-void LEFT(){                                                  // VEHICLE SWERVES LEFT //
-  servo.write(110);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);   
-  analogWrite(ENA,110);                                       // SET SPEED FOR THE MOTOR //
-  delay(10);
-}
-
-void SLIGHTLY_LEFT(){                                         // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
-  servo.write(105);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);   
-  analogWrite(ENA,120);                                       // SET SPEED FOR THE MOTOR //
-  delay(10);
-}
-
-void SLIGHTLY_LEFT_MID(){                                     // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
-  servo.write(100);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);   
-  analogWrite(ENA,120);                                       // SET SPEED FOR THE MOTOR //
-  delay(10);
-}
-
-void SLIGHTLY_LEFT_MIN(){                                     // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
-  servo.write(95);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);   
-  analogWrite(ENA,120);                                       // SET SPEED FOR THE MOTOR //
-  delay(10);
-}
-
-void SLIGHTLY_RIGHT(){                                        // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
-  servo.write(75);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);              
-  analogWrite(ENA,120);   
-  delay(10);                                                  // SET SPEED FOR THE MOTOR //
-
-} 
-
-void SLIGHTLY_RIGHT_MID(){                                    // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
-  servo.write(80);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);              
-  analogWrite(ENA,120);   
-  delay(10);                                                  // SET SPEED FOR THE MOTOR //
-
-} 
-
-void SLIGHTLY_RIGHT_MIN(){                                    // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
-  servo.write(85); 
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,HIGH);              
-  analogWrite(ENA,120);   
-  delay(10);                                                  // SET SPEED FOR THE MOTOR //
-
-}
-
-void REVERSE_RIGHT(){                                         // VEHICLE SWERVES SLIGHTLY LESS TO THE LEFT //
-  servo.write(110);
-  digitalWrite(IN1,HIGH);   
-  digitalWrite(IN2,LOW);   
-  analogWrite(ENA,120);                                       // SET SPEED FOR THE MOTOR //
-  delay(10);
-}
-
-void REVERSE_LEFT(){                                          // VEHICLE SWERVES SLIGHTLY LESS TO THE RIGHT //
-  servo.write(70);
-  digitalWrite(IN1,HIGH);   
-  digitalWrite(IN2,LOW);              
-  analogWrite(ENA,120);   
-  delay(10);                                                  // SET SPEED FOR THE MOTOR //
-
-} 
-
-void STOP(){                                                  // VEHICLE STOPS COMPLETELY//
-  servo.write(90);
-  digitalWrite(IN1,LOW);   
-  digitalWrite(IN2,LOW);  
-  analogWrite(ENA,0);
-  delay(10);
-}
-
-void CORRECT(int d1, int d3){                                // VEHICLE IS TOO CLOSE TO A WALL //
- if (d1 < d3) {
-    if (d1 < 15) {
-      SLIGHTLY_RIGHT();
-    } 
-
-    else if (d1 < 30) { 
-      SLIGHTLY_RIGHT_MID();
-    } 
-
-    else if (d1 < 35) {  
-      SLIGHTLY_RIGHT_MIN();  
-    } 
-
-    else if(d1 > 35){
-      SLIGHTLY_LEFT();
-    }    
-
-    else {
-      STRAIGHT();
-    }
-  } 
-
-  else if (d3 < d1) {
-    if (d3 < 15) {
-      SLIGHTLY_LEFT();
-    } 
-
-    else if (d3 < 30) {
-      SLIGHTLY_LEFT_MID();
-    } 
-
-    else if (d3 < 35) {
-      SLIGHTLY_LEFT_MIN();
-    } 
-   
-    else {
-      STRAIGHT();
-    }
+  else if (X == 2) {
+    unsigned long currentTime = millis();
+    float dt = (currentTime - lastTime) / 1000.0; 
+    lastTime = currentTime; 
+  
+    ANG += YR * dt;
+    ANG -=   .075;  
   }
   
+  return ANG;
+
 }
 
+
+void OBSTACLE(){
+
+  if (huskylens.request()) {                                                  // OBTAIN DATA FROM HUSKYLENS //
+    for (int i = 0; i < huskylens.countBlocks(); i++) {
+      HUSKYLENSResult result = huskylens.getBlock(i);
+      if (result.ID == 1) {                                                   // ID1 = GREEN //
+        GreenO(result.xCenter);
+      }
+      else if (result.ID == 2) {                                              // ID2 = RED //
+        RedO(result.xCenter);
+      }
+    }
+  }
+
+}
+
+
+void GreenO(int X){                                                           // OBJECT DETECTED IS GREEN //
+
+  Serial.println("Detected Green Object!");
+
+  if (X < 90 ){
+    while(X < 90){
+      SLIGHTLY_LEFT_MAX();
+    } 
+  }
+
+  else if(X < 158 && X > 90){
+    while(X < 158 && X > 90){
+      SLIGHTLY_LEFT();
+    } 
+  }
+
+  else if(X > 158 && X < 240){
+    SLIGHTLY_LEFT_MID();
+  }
+
+  else if(X > 240){
+    SLIGHTLY_LEFT_MIN();
+  }
+
+}
+
+void RedO(int X){                                                             // OBJECT DETECTED IS RED //
+
+  Serial.println("Detected Red Object!");
+
+  if (X < 90 ){
+    while(X < 90){
+      SLIGHTLY_RIGHT_MIN();
+    }
+  }
+
+  else if(X < 158 && X > 90){
+    while(X < 158 && X > 90){
+      SLIGHTLY_RIGHT_MID();
+    } 
+  }
+
+  else if(X > 158 && X < 240){
+    while(X > 158 && X < 240){
+      SLIGHTLY_RIGHT();
+    }
+  }
+
+  else if(X > 240){
+    while(X > 240){
+      SLIGHTLY_RIGHT_MAX();
+    }
+  }
+
+}
+
+
+void STRAIGHT(){                                                              // DIFFERENT VELOCITY CONFIGURATIONS //
+
+  servo.write(93);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 100);  
+  delay(10);
+
+}
+
+void STRAIGHT_SLOW(){
+
+  servo.write(94);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 70);  
+  delay(10);
+
+}
+
+void RIGHT(){
+
+  servo.write(63);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 90);  
+  delay(10);
+
+}
+
+void SLIGHTLY_RIGHT(){
+
+  servo.write(79);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 90); 
+  delay(10);
+
+}
+
+void SLIGHTLY_RIGHT_MAX(){
+
+  servo.write(74);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 90);  
+  delay(10);
+
+}
+
+void SLIGHTLY_RIGHT_MID(){                     
+
+  servo.write(84);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);            
+  ledcWrite(ENA, 100);  
+  delay(10);                
+
+} 
+
+void SLIGHTLY_RIGHT_MIN(){                    
+
+  servo.write(86);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);         
+  ledcWrite(ENA, 100);   
+  delay(10);                  
+
+} 
+
+void REVERSE_RIGHT(){
+
+  servo.write(119);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  ledcWrite(ENA, 100);  
+  delay(10);
+
+}
+
+void LEFT(){
+
+  servo.write(125);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 90); 
+  delay(10);
+
+}
+
+void SLIGHTLY_LEFT(){
+
+  servo.write(109);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 90); 
+  delay(10);
+
+}
+
+void SLIGHTLY_LEFT_MAX(){
+
+  servo.write(114);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 90);  
+  delay(10);
+
+}
+
+void SLIGHTLY_LEFT_MID(){                      
+
+  servo.write(104);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW); 
+  ledcWrite(ENA, 100);  
+  delay(10);
+}
+
+void SLIGHTLY_LEFT_MIN(){                   
+
+  servo.write(102);
+  digitalWrite(IN1,HIGH);   
+  digitalWrite(IN2,LOW);
+  ledcWrite(ENA, 100); 
+  delay(10);
+
+}
+
+void REVERSE_LEFT(){
+
+  servo.write(69);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  ledcWrite(ENA, 100);  
+  delay(10);
+
+}
+
+void STOP(){
+
+  servo.write(94);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  ledcWrite(ENA, 0);  
+  delay(10);
+
+} 
+
+void CORRECT(int d1, int d2, int d3, int d4){                                 // VEHICLE IS TOO CLOSE TO A WALL //
+
+  if (d1 < d4) {
+    if (d1 < 23) {
+      SLIGHTLY_RIGHT();
+    } 
+    else if (d2 < 23) {
+      SLIGHTLY_RIGHT();
+    }      
+  }
+  
+  else if (d4 < d1) {
+    if (d4 < 23) {
+      SLIGHTLY_LEFT();
+    } 
+    else if (d3 < 23) {
+      SLIGHTLY_LEFT();
+    }  
+
+  }
+
+}
+
+
+void CORRECT1(float ang) { 
+ if (ang > 3)
+{
+  SLIGHTLY_RIGHT_MIN();
+}
+else if (ang < -3)
+{
+  SLIGHTLY_LEFT_MIN();
+}
+
+}
 ```
 <br>
 
@@ -693,6 +775,7 @@ We would like to take a space to thank our sponsors, without whom this project c
 
 Sincerely, Mariana Flores, Claudio López, and Mariana Vega.
 
-![CETYS (1920 x 500 px) (2)](https://github.com/user-attachments/assets/27a9672c-2f5b-43ed-83a7-8f4b370a78d4)
+
+![CETYS (1920 x 500 px)](https://github.com/user-attachments/assets/173353a6-418b-4d88-a202-8c9f04a39d2e)
 
 

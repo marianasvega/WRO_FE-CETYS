@@ -681,7 +681,7 @@ if (Lap <= 11) {
     Serial.println(ANG);
 
     STRAIGHT();
-
+```
 <br>
 
   4. Now we check if there is in fact a turn, either left or right. While doing the turn, the vehicle must constantly keep checking the distances to avoid false readings. If the turn was not completed, the vehicle must return and correct.

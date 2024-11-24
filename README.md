@@ -378,23 +378,6 @@ float readYawAngle(int X) {                                                  // 
 }
 
 
-void OBSTACLE(){
-
-  if (huskylens.request()) {                                                  // OBTAIN DATA FROM HUSKYLENS //
-    for (int i = 0; i < huskylens.countBlocks(); i++) {
-      HUSKYLENSResult result = huskylens.getBlock(i);
-      if (result.ID == 1) {                                                   // ID1 = GREEN //
-        GreenO(result.xCenter);
-      }
-      else if (result.ID == 2) {                                              // ID2 = RED //
-        RedO(result.xCenter);
-      }
-    }
-  }
-
-}
-
-
 void GreenO(int X){                                                           // OBJECT DETECTED IS GREEN //
 
   Serial.println("Detected Green Object!");
@@ -660,109 +643,137 @@ if (start == true) {                                            // BUTTON IS PRE
 
 2. Then, we must check if there is an obstacle present, and swerve to the right condition (left or right).
 ```ruby
- for (int i = 0; i < pixy.ccc.numBlocks; i++) {
-    int blockWidth = pixy.ccc.blocks[i].m_width;
-    int blockHeight = pixy.ccc.blocks[i].m_height;
-    int blockSize = blockWidth * blockHeight; 
 
-    if (blockSize > highestPrioritySize) {
-      highestPrioritySize = blockSize;
-      highestPriorityIndex = i;
+if (huskylens.request()) {                                                  // OBTAIN DATA FROM HUSKYLENS //
+  for (int i = 0; i < huskylens.countBlocks(); i++) {
+    HUSKYLENSResult result = huskylens.getBlock(i);
+    if (result.ID == 1) {                                                   // ID1 = GREEN //
+       GreenO(result.xCenter);
+    }
+    else if (result.ID == 2) {                                              // ID2 = RED //
+       RedO(result.xCenter);
     }
   }
+}
 
-  if (highestPriorityIndex != -1) {
-    pixy.ccc.blocks[highestPriorityIndex].print();
-        
-    if (pixy.ccc.blocks[highestPriorityIndex].m_signature == 1) {  
-      Serial.println("Prioritized Red object detected");
-      followBlock_red(highestPriorityIndex, "Red");
-    } 
-    else if (pixy.ccc.blocks[highestPriorityIndex].m_signature == 2) { 
-      Serial.println("Prioritized Green object detected");
-      followBlock_green(highestPriorityIndex, "Green");
-    }
-  }
 ```
 <br>
 
- 3. Then we use our functions to check the distances from the 3 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
+ 3. Then we use our functions to check the distances from the 5 ultrasonic sensors. By receiving this information the vehicle can know if it must move forward, backwards, or give a left/right turn.
 
 ```ruby
- for (int i = 0; i < numSensors; i++) {                        // CALCULATE DISTANCES //
-    distances[i] = DisCalc(TrigPins[i], EchoPins[i]);
-  }
-  long distanceMid = DisCalc(Trig_US2, Echo_US2);  
-  printDistances(distances[0], distanceMid, distances[1]);
-```
-<br>
+if (Lap <= 11) {
+    DisL = DisCalc(Trig_US, Echo_US1);                                       // CALCULATE DISTANCES AND ANGLE //
+    delay(5);
+    DisM = DisCalc(Trig_US, Echo_US2);
+    delay(5);
+    DisR = DisCalc(Trig_US, Echo_US3);
+    delay(5);
+    DisLA = DisCalc(Trig_US, Echo_USAux1);
+    delay(5);
+    DisRA = DisCalc(Trig_US, Echo_USAux2);
+    delay(5);
 
-  4. If our middle distance (the one facing forward) detects a distance less than 90 cm, it may be because a turn is near.
+    printDistances(DisL, DisLA, DisM, DisRA, DisR);
 
-```ruby
- if (distanceMid < 90) {                                       // PREPARE FOR A TURN //
-    STRAIGHT_SLOW();
-  } 
-  else {
+    ANG = readYawAngle(x);
+    Serial.print("Angle: ");
+    Serial.println(ANG);
+
     STRAIGHT();
-  }
+
+<br>
+
+  4. Now we check if there is in fact a turn, either left or right. While doing the turn, the vehicle must constantly keep checking the distances to avoid false readings. If the turn was not completed, the vehicle must return and correct.
+
+```ruby
+  if ((millis() - lastTurnTime) > 3500) {                                 // CHECK TIME SINCE LAST TURN //
+      if ((DisM < 75 && DisL > 85) || (DisM < 75 && DisLA > 85)) {          // LEFT TURN //
+        for (;;) {
+          x = 1;
+          ANG = readYawAngle(x);
+          Serial.print("Angle: ");
+          Serial.println(ANG);
+
+          if (ANG >= 90.0 || ANG <= -90.0) {
+            Serial.println("Turn detected!");
+            ANG = 0;  
+            Lap++;
+            lastTurnTime = millis(); 
+            break;
+          }
+
+          DisM = DisCalc(Trig_US, Echo_US2);
+          delay(5);
+
+          printDistancesM(DisM);
+
+          if (DisM < 14) {
+            servo.write(69);
+            REVERSE_LEFT();
+            delay(1300);
+            break;
+          }
+
+          LEFT();  
+        }
+      }
+
+      if ((DisM < 75 && DisR > 85) || (DisM < 75 && DisRA > 85)) {          // RIGHT TURN //
+        for (;;) {
+          x = 2;
+          ANG = readYawAngle(x);
+          Serial.print("Angle: ");
+          Serial.println(ANG);
+
+          if (ANG >= 90.0 || ANG <= -90.0) {
+            Serial.println("Turn detected!");
+            ANG = 0;  
+            Lap++;
+            lastTurnTime = millis();  
+            break;
+          }
+
+          DisM = DisCalc(Trig_US, Echo_US2);
+          delay(5);
+
+          printDistancesM(DisM);
+
+          if (DisM < 14) {
+            servo.write(120);
+            REVERSE_RIGHT();
+            delay(1300);
+            break;
+          }
+
+          RIGHT();  
+        }
+      }
+    }
+
 ```
 <br>
 
-  5. Now we check if there is in fact a turn, either left or right. While doing the turn, the vehicle must constantly keep checking the distances to avoid false readings. If the turn was not completed, the vehicle must return and correct.
+  5. If the middle distance detected something less than 90 but there wasn´t a turn near, the vehicle must continue straight forward, or in the case that it´s too close to any wall, it must correct.
 
 ```ruby
- if (distanceMid < 100 && distances[0] > 100) {
-    while (distances[0] > 50) {                                 // TURN LEFT //
-
-      for (int i = 0; i < numSensors; i++) {
-        distances[i] = DisCalc(TrigPins[i], EchoPins[i]);       // UPDATE DISTANCES //
-      }
-      distanceMid = DisCalc(Trig_US2, Echo_US2);            
-      printDistances(distances[0], distanceMid, distances[1]);
-
-      if(distanceMid < 10){ 
-        REVERSE_LEFT();
-        delay(1000);
-        break;
-      }
-
-      LEFT();                                                      
+if (DisR < 20 || DisL < 20 || DisRA < 20 || DisLA < 20) {
+      CORRECT(DisL, DisLA, DisRA, DisR);
+    } else if (ANG > 3 || ANG < -3) {
+      CORRECT1(ANG);
     }
   }
-     
-  else if (distanceMid < 100 && distances[1] > 110) {
-    while (distances[1] > 50) {                                 // TURN RIGHT //
-
-      for (int i = 0; i < numSensors; i++) {
-        distances[i] = DisCalc(TrigPins[i], EchoPins[i]);     // UPDATE DISTANCES //
-      }
-      distanceMid = DisCalc(Trig_US2, Echo_US2);  
-      printDistances(distances[0], distanceMid, distances[1]);  
-
-      if(distanceMid < 10){ 
-        REVERSE_RIGHT();
-        delay(1000);
-        break;
-      }
-
-      RIGHT();  
-    }
-  }
-
-```
-<br>
-
-  6. If the middle distance detected something less than 90 but there wasn´t a turn near, the vehicle must continue straight forward, or in the case that it´s too close to any wall, it must correct.
-
-```ruby
- else if(distances[1] < 35 || distances[0] < 35){              // VEHICLE IS TOO CLOSE TO A WALL //
-    CORRECT(distances[0], distances[1]);
-  }
-      
-  else{
+else {
+    servo.write(94);
+    delay(100);
     STRAIGHT();
+    delay(1600);
+
+    for (;;) {
+      STOP();
+    }
   }
+
 ```
 
 <br>

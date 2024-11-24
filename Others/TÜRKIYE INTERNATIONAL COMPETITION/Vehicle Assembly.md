@@ -5,12 +5,7 @@
 
 ** **
 
-## Chassis Assembly🛞
-**Visit the following YouTube link:** 
-
-** **
-
 ## Vehicle Final Assembly🔋
-**Visit the following YouTube link:** 
+**Visit the following YouTube link:** [Vehicle Final Assembly](https://youtu.be/vljPDZFnR9c)
 
 ** **
